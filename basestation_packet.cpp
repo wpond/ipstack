@@ -6,6 +6,7 @@ namespace basestation
 {
 
 Packet::Packet(const char* data, int size)
+    : mSize(size)
 {
     mData = new char[size];
     memcpy(mData, data, size);
