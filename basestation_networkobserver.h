@@ -8,6 +8,8 @@
 namespace basestation
 {
 
+class Network;
+
 class NetworkObserver
 {
 public:
@@ -15,7 +17,7 @@ public:
     virtual ~NetworkObserver() {}
 
     // Pure virtual function
-    virtual void receive(std::shared_ptr<Packet> packet) = 0;
+    virtual void receive(Network* network, std::shared_ptr<Packet> packet) = 0;
 };
 
 }

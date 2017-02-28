@@ -12,11 +12,11 @@ class TestObserver : public basestation::NetworkObserver
 {
 public:
     TestObserver() {}
-    void receive(std::shared_ptr<basestation::Packet> packet)
+    void receive(basestation::Network* network, std::shared_ptr<basestation::Packet> packet)
     {
         if (packet)
         {
-            std::cout << "TestObserver received packet, size = " << packet->size() << "\n";
+            std::cout << network->interface() << " received packet, size = " << packet->size() << "\n";
         }
         else
         {

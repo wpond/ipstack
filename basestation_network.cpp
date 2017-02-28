@@ -186,7 +186,7 @@ void Network::notify(std::shared_ptr<Packet> packet)
     std::vector<std::thread> threads;
     for (auto observer : mObservers)
     {
-        std::function<void()> func = std::bind(&NetworkObserver::receive, &(*observer), packet);
+        std::function<void()> func = std::bind(&NetworkObserver::receive, &(*observer), this, packet);
         threads.emplace_back(std::thread(func));
     }
     for (auto & thread : threads)
