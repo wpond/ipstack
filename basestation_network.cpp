@@ -3,6 +3,7 @@
 #include <sstream>
 #include <stdexcept>
 #include <cstring>
+#include <thread>
 
 #include <sys/ioctl.h>
 #include <sys/socket.h>
@@ -134,8 +135,10 @@ Network::Network()
     }
 
     // Setup threads
-    mReadThread = new std::thread(NetworkReader(mFd, &mReadQueue, &mStopFlag));
-    mWriteThread = new std::thread(NetworkWriter(mFd, &mWriteQueue, &mStopFlag));
+    std::function<void(std::shared_ptr<Packet>)> callback =
+        std::bind(&Network::notify, this, std::placeholders::_1);
+    mReadThread = new std::thread(NetworkReader(mFd, callback, mStopFlag));
+    //mWriteThread = new std::thread(NetworkWriter(mFd, &mWriteQueue, &mStopFlag));
 }
 
 Network::~Network()
@@ -157,23 +160,39 @@ const std::string& Network::interface() const
     return mInterface;
 }
 
-std::shared_ptr<Packet> Network::read()
+void Network::attach(NetworkObserver* observer)
 {
-    if (mReadQueue.size() > 0)
+    if (!observer)
     {
-        std::shared_ptr<Packet> packet(mReadQueue.front());
-        mReadQueue.pop();
-        return packet;
+        throw std::runtime_error("Cannot attach NULL observer");
     }
-    else
-    {
-        return std::shared_ptr<Packet>();
-    }
+
+    mObservers.insert(observer);
 }
 
-void Network::write(std::shared_ptr<Packet> packet)
+void Network::detatch(NetworkObserver* observer)
 {
-    mWriteQueue.push(packet);
+    if (!observer)
+    {
+        throw std::runtime_error("Cannot detatch NULL observer");
+    }
+
+    mObservers.erase(observer);
+}
+
+void Network::notify(std::shared_ptr<Packet> packet)
+{
+    // TODO: could this be more efficient? do we have to join on the threads
+    std::vector<std::thread> threads;
+    for (auto observer : mObservers)
+    {
+        std::function<void()> func = std::bind(&NetworkObserver::receive, &(*observer), packet);
+        threads.emplace_back(std::thread(func));
+    }
+    for (auto & thread : threads)
+    {
+        thread.join();
+    }
 }
 
 }

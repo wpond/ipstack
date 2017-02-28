@@ -22,25 +22,17 @@ const int TIMEOUT = 1;  // seconds
 
 NetworkReader::NetworkReader(
     int fd,
-    std::queue<std::shared_ptr<Packet> >* queue,
-    const std::atomic_bool* stopFlag)
-    : mStopFlag(stopFlag), mFd(fd), mQueue(queue)
+    std::function<void(std::shared_ptr<Packet>)> callback,
+    const std::atomic_bool& stopFlag)
+    : mFd(fd), mCallback(callback), mStopFlag(stopFlag)
 {
-    if (!mQueue)
-    {
-        throw std::runtime_error("Cannot create network reader, queue is NULL");
-    }
-
-    if (!mStopFlag)
-    {
-        throw std::runtime_error("Cannot create network reader, stopFlag is NULL");
-    }
+    // Nothing to do
 }
 
 void NetworkReader::operator()()
 {
     char buffer[MTU];
-    while (!*mStopFlag)
+    while (!mStopFlag)
     {
         struct timeval timeout;
         timeout.tv_usec = 0;
@@ -80,7 +72,7 @@ void NetworkReader::operator()()
         }
 
         std::shared_ptr<Packet> packet(new Packet(buffer, bytes));
-        mQueue->push(packet);
+        mCallback(packet);
     }
 }
 
