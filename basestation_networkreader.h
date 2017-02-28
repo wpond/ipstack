@@ -3,9 +3,9 @@
 
 #include "basestation_packet.h"
 
-#include <queue>
-#include <memory>
 #include <atomic>
+#include <memory>
+#include <functional>
 
 namespace basestation
 {
@@ -15,14 +15,14 @@ class NetworkReader
 public:
     NetworkReader(
         int fd,
-        std::queue<std::shared_ptr<Packet> >* queue,
-        const std::atomic_bool* stopFlag);
+        std::function<void(std::shared_ptr<Packet>)> callback,
+        const std::atomic_bool& stopFlag);
 
     void operator()();
 private:
-    const std::atomic_bool* mStopFlag;
     int mFd;
-    std::queue<std::shared_ptr<Packet> >* mQueue;
+    std::function<void(std::shared_ptr<Packet>)> mCallback;
+    const std::atomic_bool& mStopFlag;
 };
 
 }

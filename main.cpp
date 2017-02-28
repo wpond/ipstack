@@ -1,8 +1,31 @@
 
 #include "basestation_network.h"
+#include "basestation_networkobserver.h"
 
 #include <iostream>
 #include <stdexcept>
+
+namespace
+{
+
+class TestObserver : public basestation::NetworkObserver
+{
+public:
+    TestObserver() {}
+    void receive(std::shared_ptr<basestation::Packet> packet)
+    {
+        if (packet)
+        {
+            std::cout << "TestObserver received packet, size = " << packet->size() << "\n";
+        }
+        else
+        {
+            throw std::runtime_error("TestObserver got NULL packet");
+        }
+    }
+};
+
+}
 
 int main(int argc, char* argv[])
 {
@@ -12,8 +35,9 @@ int main(int argc, char* argv[])
         basestation::Network net;
         std::cout << "Created device " << net.interface() << "\n";
 
-        // Attach stack
-        
+        // Attach receiver
+        TestObserver test;
+        net.attach(&test);
 
         while (true);
     }

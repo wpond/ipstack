@@ -3,7 +3,7 @@ main.cpp \
 basestation_network.cpp \
 basestation_packet.cpp \
 basestation_networkreader.cpp \
-basestation_networkwriter.cpp \
+basestation_networkobserver.cpp \
 
 
 OBJS=$(SRCS:.cpp=.o)
@@ -18,10 +18,10 @@ print-%  : ; @echo $* = $($*)
 bin: $(BIN)
 
 $(BIN): $(OBJS)
-	g++ -std=c++11 -pthread -o $(BIN) $(OBJS)
+	g++ -std=c++11 -pthread -g -o $(BIN) $(OBJS)
 
 $(OBJS): $(SRCS)
-	g++ -std=c++11 -pthread -c $(SRCS)
+	g++ -std=c++11 -pthread -g -c $(SRCS)
 
 clean:
 	rm -f $(OBJS) $(BIN)
