@@ -1,9 +1,13 @@
 
-#include "basestation_network.h"
+#include "basestation_networkadapter.h"
 #include "basestation_networkobserver.h"
 
 #include <iostream>
 #include <stdexcept>
+#include <cstring>
+#include <iomanip>
+
+#define HEX(X) std::hex << std::setfill('0') << std::setw(2) << ((int)X & 0x000000FF) << std::dec
 
 namespace
 {
@@ -12,16 +16,14 @@ class TestObserver : public basestation::NetworkObserver
 {
 public:
     TestObserver() {}
-    void receive(basestation::Network* network, std::shared_ptr<basestation::Packet> packet)
+    void receive(basestation::NetworkAdapter* network, std::shared_ptr<const basestation::Packet> packet)
     {
-        if (packet)
-        {
-            std::cout << network->interface() << " received packet, size = " << packet->size() << "\n";
-        }
-        else
+        if (!packet)
         {
             throw std::runtime_error("TestObserver got NULL packet");
         }
+
+        std::cout << "got packet, size = " << packet->size() << "\n";
     }
 };
 
@@ -32,7 +34,7 @@ int main(int argc, char* argv[])
     try
     {
         // Create network adapter
-        basestation::Network net;
+        basestation::NetworkAdapter net;
         std::cout << "Created device " << net.interface() << "\n";
 
         // Attach receiver

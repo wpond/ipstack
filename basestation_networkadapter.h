@@ -1,5 +1,5 @@
-#ifndef BASESTATION_NETWORK_H
-#define BASESTATION_NETWORK_H
+#ifndef BASESTATION_NETWORKADAPTER_H
+#define BASESTATION_NETWORKADAPTER_H
 
 #include <string>
 #include <queue>
@@ -18,11 +18,11 @@
 namespace basestation
 {
 
-class Network
+class NetworkAdapter
 {
 public:
-    Network();
-    ~Network();
+    NetworkAdapter();
+    ~NetworkAdapter();
 
     const std::string& interface() const;
 
@@ -38,7 +38,7 @@ private:
     int mSocket;
 
     // Notify observers of packet
-    void notify(std::shared_ptr<Packet> packet);
+    void notify(std::shared_ptr<const Packet> packet);
 
     std::set<NetworkObserver*> mObservers;
 

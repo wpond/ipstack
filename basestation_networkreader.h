@@ -15,13 +15,13 @@ class NetworkReader
 public:
     NetworkReader(
         int fd,
-        std::function<void(std::shared_ptr<Packet>)> callback,
+        std::function<void(std::shared_ptr<const Packet>)> callback,
         const std::atomic_bool& stopFlag);
 
     void operator()();
 private:
     int mFd;
-    std::function<void(std::shared_ptr<Packet>)> mCallback;
+    std::function<void(std::shared_ptr<const Packet>)> mCallback;
     const std::atomic_bool& mStopFlag;
 };
 

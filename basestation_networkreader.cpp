@@ -22,7 +22,7 @@ const int TIMEOUT = 1;  // seconds
 
 NetworkReader::NetworkReader(
     int fd,
-    std::function<void(std::shared_ptr<Packet>)> callback,
+    std::function<void(std::shared_ptr<const Packet>)> callback,
     const std::atomic_bool& stopFlag)
     : mFd(fd), mCallback(callback), mStopFlag(stopFlag)
 {
@@ -71,7 +71,7 @@ void NetworkReader::operator()()
             throw std::runtime_error("Failed to read from network");
         }
 
-        std::shared_ptr<Packet> packet(new Packet(buffer, bytes));
+        std::shared_ptr<const Packet> packet(new Packet(buffer, bytes));
         mCallback(packet);
     }
 }

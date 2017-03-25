@@ -1,6 +1,6 @@
 SRCS= \
 main.cpp \
-basestation_network.cpp \
+basestation_networkadapter.cpp \
 basestation_packet.cpp \
 basestation_networkreader.cpp \
 basestation_networkobserver.cpp \

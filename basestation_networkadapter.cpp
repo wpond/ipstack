@@ -1,4 +1,4 @@
-#include "basestation_network.h"
+#include "basestation_networkadapter.h"
 
 #include <sstream>
 #include <stdexcept>
@@ -30,7 +30,7 @@ const std::string MASK = "255.255.255.0";
 
 }
 
-Network::Network()
+NetworkAdapter::NetworkAdapter()
     : mStopFlag(false), mReadThread(0), mWriteThread(0)
 {
     // Open interface
@@ -135,13 +135,13 @@ Network::Network()
     }
 
     // Setup threads
-    std::function<void(std::shared_ptr<Packet>)> callback =
-        std::bind(&Network::notify, this, std::placeholders::_1);
+    std::function<void(std::shared_ptr<const Packet>)> callback =
+        std::bind(&NetworkAdapter::notify, this, std::placeholders::_1);
     mReadThread = new std::thread(NetworkReader(mFd, callback, mStopFlag));
     //mWriteThread = new std::thread(NetworkWriter(mFd, &mWriteQueue, &mStopFlag));
 }
 
-Network::~Network()
+NetworkAdapter::~NetworkAdapter()
 {
     mStopFlag = true;
 
@@ -155,12 +155,12 @@ Network::~Network()
     close(mFd);
 }
 
-const std::string& Network::interface() const
+const std::string& NetworkAdapter::interface() const
 {
     return mInterface;
 }
 
-void Network::attach(NetworkObserver* observer)
+void NetworkAdapter::attach(NetworkObserver* observer)
 {
     if (!observer)
     {
@@ -170,7 +170,7 @@ void Network::attach(NetworkObserver* observer)
     mObservers.insert(observer);
 }
 
-void Network::detatch(NetworkObserver* observer)
+void NetworkAdapter::detatch(NetworkObserver* observer)
 {
     if (!observer)
     {
@@ -180,7 +180,7 @@ void Network::detatch(NetworkObserver* observer)
     mObservers.erase(observer);
 }
 
-void Network::notify(std::shared_ptr<Packet> packet)
+void NetworkAdapter::notify(std::shared_ptr<const Packet> packet)
 {
     // TODO: could this be more efficient? do we have to join on the threads
     std::vector<std::thread> threads;
@@ -192,6 +192,19 @@ void Network::notify(std::shared_ptr<Packet> packet)
     for (auto & thread : threads)
     {
         thread.join();
+    }
+}
+
+void NetworkAdapter::send(const std::shared_ptr<Packet>& packet)
+{
+    const int bytes = write(mFd, packet->data(), packet->size());
+    if (bytes != packet->size())
+    {
+        std::ostringstream oss;
+        oss << "Packet write resulted in unexpected number of bytes, "
+            << "packet size = " << packet->size() << ", "
+            << "bytes written = " << bytes;
+        throw std::runtime_error(oss.str());
     }
 }
 
