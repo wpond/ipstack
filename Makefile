@@ -4,6 +4,9 @@ basestation_networkadapter.cpp \
 basestation_packet.cpp \
 basestation_networkreader.cpp \
 basestation_networkobserver.cpp \
+basestation_arpobserver.cpp \
+basestation_ethernetdecoder.cpp \
+basestation_byteprinter.cpp \
 
 
 OBJS=$(SRCS:.cpp=.o)

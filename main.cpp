@@ -1,29 +1,38 @@
 
 #include "basestation_networkadapter.h"
+#include "basestation_arpobserver.h"
+
+// Only used for debug observer
 #include "basestation_networkobserver.h"
+#include "basestation_ethernetdecoder.h"
+#include "basestation_byteprinter.h"
 
 #include <iostream>
 #include <stdexcept>
-#include <cstring>
-#include <iomanip>
-
-#define HEX(X) std::hex << std::setfill('0') << std::setw(2) << ((int)X & 0x000000FF) << std::dec
 
 namespace
 {
 
-class TestObserver : public basestation::NetworkObserver
+class DebugObserver : public basestation::NetworkObserver
 {
 public:
-    TestObserver() {}
+    DebugObserver() {}
     void receive(basestation::NetworkAdapter* network, std::shared_ptr<const basestation::Packet> packet)
     {
         if (!packet)
         {
-            throw std::runtime_error("TestObserver got NULL packet");
+            throw std::runtime_error("DebugObserver got NULL packet");
         }
 
-        std::cout << "got packet, size = " << packet->size() << "\n";
+        std::cout << "Debug observer received packet, size = " << packet->size() << "\n";
+
+        std::cout << "Ethernet header, " << basestation::BytePrinter(packet->data(), 14, 6) << "\n";
+
+        basestation::EthernetDecoder decoder(packet);
+        std::cout << "Ethernet fields, " << decoder << "\n";
+
+        unsigned short type = decoder.type();
+        std::cout << "type = " << basestation::BytePrinter(&type, 2) << "\n";
     }
 };
 
@@ -37,9 +46,12 @@ int main(int argc, char* argv[])
         basestation::NetworkAdapter net;
         std::cout << "Created device " << net.interface() << "\n";
 
-        // Attach receiver
-        TestObserver test;
-        net.attach(&test);
+        // Attach receivers
+        DebugObserver debugger;
+        net.attach(&debugger);
+
+        basestation::ArpObserver arp;
+        net.attach(&arp);
 
         while (true);
     }
