@@ -1,4 +1,4 @@
-#include "basestation_networkreader.h"
+#include "networkadapter_reader.h"
 
 #include <stdexcept>
 #include <sstream>
@@ -9,7 +9,7 @@
 #include <sys/time.h>
 #include <sys/select.h>
 
-namespace basestation
+namespace networkadapter
 {
 
 namespace
@@ -20,16 +20,16 @@ const int TIMEOUT = 1;  // seconds
 
 }
 
-NetworkReader::NetworkReader(
+Reader::Reader(
     int fd,
-    std::function<void(std::shared_ptr<const Packet>)> callback,
+    std::function<void(std::shared_ptr<const networkstack::Packet>)> callback,
     const std::atomic_bool& stopFlag)
     : mFd(fd), mCallback(callback), mStopFlag(stopFlag)
 {
     // Nothing to do
 }
 
-void NetworkReader::operator()()
+void Reader::operator()()
 {
     char buffer[MTU];
     while (!mStopFlag)
@@ -71,7 +71,7 @@ void NetworkReader::operator()()
             throw std::runtime_error("Failed to read from network");
         }
 
-        std::shared_ptr<const Packet> packet(new Packet(buffer, bytes));
+        std::shared_ptr<const networkstack::Packet> packet(new networkstack::Packet(buffer, bytes));
         mCallback(packet);
     }
 }

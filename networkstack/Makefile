@@ -112,77 +112,77 @@ networkstack/fast:
 	cd /home/will/Projects/tuntap && $(MAKE) -f networkstack/CMakeFiles/networkstack.dir/build.make networkstack/CMakeFiles/networkstack.dir/build
 .PHONY : networkstack/fast
 
-basestation_arpobserver.o: basestation_arpobserver.cpp.o
-.PHONY : basestation_arpobserver.o
+networkstack_arpobserver.o: networkstack_arpobserver.cpp.o
+.PHONY : networkstack_arpobserver.o
 
 # target to build an object file
-basestation_arpobserver.cpp.o:
-	cd /home/will/Projects/tuntap && $(MAKE) -f networkstack/CMakeFiles/networkstack.dir/build.make networkstack/CMakeFiles/networkstack.dir/basestation_arpobserver.cpp.o
-.PHONY : basestation_arpobserver.cpp.o
+networkstack_arpobserver.cpp.o:
+	cd /home/will/Projects/tuntap && $(MAKE) -f networkstack/CMakeFiles/networkstack.dir/build.make networkstack/CMakeFiles/networkstack.dir/networkstack_arpobserver.cpp.o
+.PHONY : networkstack_arpobserver.cpp.o
 
-basestation_arpobserver.i: basestation_arpobserver.cpp.i
-.PHONY : basestation_arpobserver.i
+networkstack_arpobserver.i: networkstack_arpobserver.cpp.i
+.PHONY : networkstack_arpobserver.i
 
 # target to preprocess a source file
-basestation_arpobserver.cpp.i:
-	cd /home/will/Projects/tuntap && $(MAKE) -f networkstack/CMakeFiles/networkstack.dir/build.make networkstack/CMakeFiles/networkstack.dir/basestation_arpobserver.cpp.i
-.PHONY : basestation_arpobserver.cpp.i
+networkstack_arpobserver.cpp.i:
+	cd /home/will/Projects/tuntap && $(MAKE) -f networkstack/CMakeFiles/networkstack.dir/build.make networkstack/CMakeFiles/networkstack.dir/networkstack_arpobserver.cpp.i
+.PHONY : networkstack_arpobserver.cpp.i
 
-basestation_arpobserver.s: basestation_arpobserver.cpp.s
-.PHONY : basestation_arpobserver.s
+networkstack_arpobserver.s: networkstack_arpobserver.cpp.s
+.PHONY : networkstack_arpobserver.s
 
 # target to generate assembly for a file
-basestation_arpobserver.cpp.s:
-	cd /home/will/Projects/tuntap && $(MAKE) -f networkstack/CMakeFiles/networkstack.dir/build.make networkstack/CMakeFiles/networkstack.dir/basestation_arpobserver.cpp.s
-.PHONY : basestation_arpobserver.cpp.s
+networkstack_arpobserver.cpp.s:
+	cd /home/will/Projects/tuntap && $(MAKE) -f networkstack/CMakeFiles/networkstack.dir/build.make networkstack/CMakeFiles/networkstack.dir/networkstack_arpobserver.cpp.s
+.PHONY : networkstack_arpobserver.cpp.s
 
-basestation_ethernetdecoder.o: basestation_ethernetdecoder.cpp.o
-.PHONY : basestation_ethernetdecoder.o
+networkstack_ethernetdecoder.o: networkstack_ethernetdecoder.cpp.o
+.PHONY : networkstack_ethernetdecoder.o
 
 # target to build an object file
-basestation_ethernetdecoder.cpp.o:
-	cd /home/will/Projects/tuntap && $(MAKE) -f networkstack/CMakeFiles/networkstack.dir/build.make networkstack/CMakeFiles/networkstack.dir/basestation_ethernetdecoder.cpp.o
-.PHONY : basestation_ethernetdecoder.cpp.o
+networkstack_ethernetdecoder.cpp.o:
+	cd /home/will/Projects/tuntap && $(MAKE) -f networkstack/CMakeFiles/networkstack.dir/build.make networkstack/CMakeFiles/networkstack.dir/networkstack_ethernetdecoder.cpp.o
+.PHONY : networkstack_ethernetdecoder.cpp.o
 
-basestation_ethernetdecoder.i: basestation_ethernetdecoder.cpp.i
-.PHONY : basestation_ethernetdecoder.i
+networkstack_ethernetdecoder.i: networkstack_ethernetdecoder.cpp.i
+.PHONY : networkstack_ethernetdecoder.i
 
 # target to preprocess a source file
-basestation_ethernetdecoder.cpp.i:
-	cd /home/will/Projects/tuntap && $(MAKE) -f networkstack/CMakeFiles/networkstack.dir/build.make networkstack/CMakeFiles/networkstack.dir/basestation_ethernetdecoder.cpp.i
-.PHONY : basestation_ethernetdecoder.cpp.i
+networkstack_ethernetdecoder.cpp.i:
+	cd /home/will/Projects/tuntap && $(MAKE) -f networkstack/CMakeFiles/networkstack.dir/build.make networkstack/CMakeFiles/networkstack.dir/networkstack_ethernetdecoder.cpp.i
+.PHONY : networkstack_ethernetdecoder.cpp.i
 
-basestation_ethernetdecoder.s: basestation_ethernetdecoder.cpp.s
-.PHONY : basestation_ethernetdecoder.s
+networkstack_ethernetdecoder.s: networkstack_ethernetdecoder.cpp.s
+.PHONY : networkstack_ethernetdecoder.s
 
 # target to generate assembly for a file
-basestation_ethernetdecoder.cpp.s:
-	cd /home/will/Projects/tuntap && $(MAKE) -f networkstack/CMakeFiles/networkstack.dir/build.make networkstack/CMakeFiles/networkstack.dir/basestation_ethernetdecoder.cpp.s
-.PHONY : basestation_ethernetdecoder.cpp.s
+networkstack_ethernetdecoder.cpp.s:
+	cd /home/will/Projects/tuntap && $(MAKE) -f networkstack/CMakeFiles/networkstack.dir/build.make networkstack/CMakeFiles/networkstack.dir/networkstack_ethernetdecoder.cpp.s
+.PHONY : networkstack_ethernetdecoder.cpp.s
 
-basestation_packet.o: basestation_packet.cpp.o
-.PHONY : basestation_packet.o
+networkstack_packet.o: networkstack_packet.cpp.o
+.PHONY : networkstack_packet.o
 
 # target to build an object file
-basestation_packet.cpp.o:
-	cd /home/will/Projects/tuntap && $(MAKE) -f networkstack/CMakeFiles/networkstack.dir/build.make networkstack/CMakeFiles/networkstack.dir/basestation_packet.cpp.o
-.PHONY : basestation_packet.cpp.o
+networkstack_packet.cpp.o:
+	cd /home/will/Projects/tuntap && $(MAKE) -f networkstack/CMakeFiles/networkstack.dir/build.make networkstack/CMakeFiles/networkstack.dir/networkstack_packet.cpp.o
+.PHONY : networkstack_packet.cpp.o
 
-basestation_packet.i: basestation_packet.cpp.i
-.PHONY : basestation_packet.i
+networkstack_packet.i: networkstack_packet.cpp.i
+.PHONY : networkstack_packet.i
 
 # target to preprocess a source file
-basestation_packet.cpp.i:
-	cd /home/will/Projects/tuntap && $(MAKE) -f networkstack/CMakeFiles/networkstack.dir/build.make networkstack/CMakeFiles/networkstack.dir/basestation_packet.cpp.i
-.PHONY : basestation_packet.cpp.i
+networkstack_packet.cpp.i:
+	cd /home/will/Projects/tuntap && $(MAKE) -f networkstack/CMakeFiles/networkstack.dir/build.make networkstack/CMakeFiles/networkstack.dir/networkstack_packet.cpp.i
+.PHONY : networkstack_packet.cpp.i
 
-basestation_packet.s: basestation_packet.cpp.s
-.PHONY : basestation_packet.s
+networkstack_packet.s: networkstack_packet.cpp.s
+.PHONY : networkstack_packet.s
 
 # target to generate assembly for a file
-basestation_packet.cpp.s:
-	cd /home/will/Projects/tuntap && $(MAKE) -f networkstack/CMakeFiles/networkstack.dir/build.make networkstack/CMakeFiles/networkstack.dir/basestation_packet.cpp.s
-.PHONY : basestation_packet.cpp.s
+networkstack_packet.cpp.s:
+	cd /home/will/Projects/tuntap && $(MAKE) -f networkstack/CMakeFiles/networkstack.dir/build.make networkstack/CMakeFiles/networkstack.dir/networkstack_packet.cpp.s
+.PHONY : networkstack_packet.cpp.s
 
 # Help Target
 help:
@@ -193,15 +193,15 @@ help:
 	@echo "... edit_cache"
 	@echo "... networkstack"
 	@echo "... rebuild_cache"
-	@echo "... basestation_arpobserver.o"
-	@echo "... basestation_arpobserver.i"
-	@echo "... basestation_arpobserver.s"
-	@echo "... basestation_ethernetdecoder.o"
-	@echo "... basestation_ethernetdecoder.i"
-	@echo "... basestation_ethernetdecoder.s"
-	@echo "... basestation_packet.o"
-	@echo "... basestation_packet.i"
-	@echo "... basestation_packet.s"
+	@echo "... networkstack_arpobserver.o"
+	@echo "... networkstack_arpobserver.i"
+	@echo "... networkstack_arpobserver.s"
+	@echo "... networkstack_ethernetdecoder.o"
+	@echo "... networkstack_ethernetdecoder.i"
+	@echo "... networkstack_ethernetdecoder.s"
+	@echo "... networkstack_packet.o"
+	@echo "... networkstack_packet.i"
+	@echo "... networkstack_packet.s"
 .PHONY : help
 
 

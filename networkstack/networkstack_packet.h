@@ -1,9 +1,9 @@
-#ifndef BASESTATION_PACKET_H
-#define BASESTATION_PACKET_H
+#ifndef NETWORKSTACK_PACKET_H
+#define NETWORKSTACK_PACKET_H
 
 #include <memory>
 
-namespace basestation
+namespace networkstack
 {
 
 class Packet

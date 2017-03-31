@@ -1,11 +1,11 @@
 
-#include "basestation_networkadapter.h"
-#include "basestation_arpobserver.h"
+#include "networkadapter_adapter.h"
+#include "networkstack_arpobserver.h"
 
 // Only used for debug observer
-#include "basestation_networkobserver.h"
-#include "basestation_ethernetdecoder.h"
-#include "basestation_byteprinter.h"
+#include "networkadapter_observer.h"
+#include "networkstack_ethernetdecoder.h"
+#include "networkutils_byteprinter.h"
 
 #include <iostream>
 #include <stdexcept>
@@ -13,11 +13,11 @@
 namespace
 {
 
-class DebugObserver : public basestation::NetworkObserver
+class DebugObserver : public networkadapter::Observer
 {
 public:
     DebugObserver() {}
-    void receive(basestation::NetworkAdapter* network, std::shared_ptr<const basestation::Packet> packet)
+    void receive(networkadapter::Adapter* network, std::shared_ptr<const networkstack::Packet> packet)
     {
         if (!packet)
         {
@@ -26,13 +26,13 @@ public:
 
         std::cout << "Debug observer received packet, size = " << packet->size() << "\n";
 
-        std::cout << "Ethernet header, " << basestation::BytePrinter(packet->data(), 14, 6) << "\n";
+        std::cout << "Ethernet header, " << networkutils::BytePrinter(packet->data(), 14, 6) << "\n";
 
-        basestation::EthernetDecoder decoder(packet);
+        networkstack::EthernetDecoder decoder(packet);
         std::cout << "Ethernet fields, " << decoder << "\n";
 
         unsigned short type = decoder.type();
-        std::cout << "type = " << basestation::BytePrinter(&type, 2) << "\n";
+        std::cout << "type = " << networkutils::BytePrinter(&type, 2) << "\n";
     }
 };
 
@@ -43,14 +43,14 @@ int main(int argc, char* argv[])
     try
     {
         // Create network adapter
-        basestation::NetworkAdapter net;
+        networkadapter::Adapter net;
         std::cout << "Created device " << net.interface() << "\n";
 
         // Attach receivers
         DebugObserver debugger;
         net.attach(&debugger);
 
-        basestation::ArpObserver arp;
+        networkstack::ArpObserver arp;
         net.attach(&arp);
 
         while (true);

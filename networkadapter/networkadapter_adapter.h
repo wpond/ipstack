@@ -1,5 +1,5 @@
-#ifndef BASESTATION_NETWORKADAPTER_H
-#define BASESTATION_NETWORKADAPTER_H
+#ifndef NETWORKADAPTER_ADAPTER_H
+#define NETWORKADAPTER_ADAPTER_H
 
 #include <string>
 #include <queue>
@@ -10,27 +10,27 @@
 #include <mutex>
 #include <condition_variable>
 
-#include "basestation_packet.h"
-#include "basestation_networkreader.h"
-#include "basestation_networkwriter.h"
-#include "basestation_networkobserver.h"
+#include "networkstack_packet.h"
+#include "networkadapter_reader.h"
+#include "networkadapter_writer.h"
+#include "networkadapter_observer.h"
 
-namespace basestation
+namespace networkadapter
 {
 
-class NetworkAdapter
+class Adapter
 {
 public:
-    NetworkAdapter();
-    ~NetworkAdapter();
+    Adapter();
+    ~Adapter();
 
     const std::string& interface() const;
 
-    void attach(NetworkObserver* observer);
-    void detatch(NetworkObserver* observer);
+    void attach(Observer* observer);
+    void detatch(Observer* observer);
 
     // Send a packet
-    void send(const std::shared_ptr<Packet>& packet);
+    void send(const std::shared_ptr<networkstack::Packet>& packet);
 
 private:
     std::string mInterface;
@@ -38,11 +38,11 @@ private:
     int mSocket;
 
     // Notify observers of packet
-    void notify(std::shared_ptr<const Packet> packet);
+    void notify(std::shared_ptr<const networkstack::Packet> packet);
 
-    std::set<NetworkObserver*> mObservers;
+    std::set<Observer*> mObservers;
 
-    std::queue<std::shared_ptr<Packet> > mSendQueue;
+    std::queue<std::shared_ptr<networkstack::Packet> > mSendQueue;
     std::mutex mSendLock;  // Lock this to access send queue
     std::condition_variable mSendCondition;  // Used to notify sender that there are packets
 

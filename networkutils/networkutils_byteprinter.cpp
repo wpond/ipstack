@@ -1,9 +1,9 @@
-#include "basestation_byteprinter.h"
+#include "networkutils_byteprinter.h"
 
 #include <stdexcept>
 #include <iomanip>
 
-namespace basestation
+namespace networkutils
 {
 
 BytePrinter::BytePrinter(const void* data, unsigned int size, int bytesPerLine)

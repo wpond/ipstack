@@ -1,9 +1,9 @@
-#ifndef BASESTATION_BYTEPRINTER_H
-#define BASESTATION_BYTEPRINTER_H
+#ifndef NETWORKUTILS_BYTEPRINTER_H
+#define NETWORKUTILS_BYTEPRINTER_H
 
 #include <ostream>
 
-namespace basestation
+namespace networkutils
 {
 
 class BytePrinter

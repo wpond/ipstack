@@ -1,11 +1,11 @@
-#include "basestation_ethernetdecoder.h"
+#include "networkstack_ethernetdecoder.h"
 
 #include <stdexcept>
 #include <cstring>
 
 #include <arpa/inet.h>
 
-namespace basestation
+namespace networkstack
 {
 
 EthernetDecoder::EthernetDecoder(std::shared_ptr<const Packet> packet)

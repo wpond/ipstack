@@ -1,0 +1,1 @@
+#include "networkadapter_observer.h"

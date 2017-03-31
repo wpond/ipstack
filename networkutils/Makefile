@@ -112,29 +112,29 @@ networkutils/fast:
 	cd /home/will/Projects/tuntap && $(MAKE) -f networkutils/CMakeFiles/networkutils.dir/build.make networkutils/CMakeFiles/networkutils.dir/build
 .PHONY : networkutils/fast
 
-basestation_byteprinter.o: basestation_byteprinter.cpp.o
-.PHONY : basestation_byteprinter.o
+networkutils_byteprinter.o: networkutils_byteprinter.cpp.o
+.PHONY : networkutils_byteprinter.o
 
 # target to build an object file
-basestation_byteprinter.cpp.o:
-	cd /home/will/Projects/tuntap && $(MAKE) -f networkutils/CMakeFiles/networkutils.dir/build.make networkutils/CMakeFiles/networkutils.dir/basestation_byteprinter.cpp.o
-.PHONY : basestation_byteprinter.cpp.o
+networkutils_byteprinter.cpp.o:
+	cd /home/will/Projects/tuntap && $(MAKE) -f networkutils/CMakeFiles/networkutils.dir/build.make networkutils/CMakeFiles/networkutils.dir/networkutils_byteprinter.cpp.o
+.PHONY : networkutils_byteprinter.cpp.o
 
-basestation_byteprinter.i: basestation_byteprinter.cpp.i
-.PHONY : basestation_byteprinter.i
+networkutils_byteprinter.i: networkutils_byteprinter.cpp.i
+.PHONY : networkutils_byteprinter.i
 
 # target to preprocess a source file
-basestation_byteprinter.cpp.i:
-	cd /home/will/Projects/tuntap && $(MAKE) -f networkutils/CMakeFiles/networkutils.dir/build.make networkutils/CMakeFiles/networkutils.dir/basestation_byteprinter.cpp.i
-.PHONY : basestation_byteprinter.cpp.i
+networkutils_byteprinter.cpp.i:
+	cd /home/will/Projects/tuntap && $(MAKE) -f networkutils/CMakeFiles/networkutils.dir/build.make networkutils/CMakeFiles/networkutils.dir/networkutils_byteprinter.cpp.i
+.PHONY : networkutils_byteprinter.cpp.i
 
-basestation_byteprinter.s: basestation_byteprinter.cpp.s
-.PHONY : basestation_byteprinter.s
+networkutils_byteprinter.s: networkutils_byteprinter.cpp.s
+.PHONY : networkutils_byteprinter.s
 
 # target to generate assembly for a file
-basestation_byteprinter.cpp.s:
-	cd /home/will/Projects/tuntap && $(MAKE) -f networkutils/CMakeFiles/networkutils.dir/build.make networkutils/CMakeFiles/networkutils.dir/basestation_byteprinter.cpp.s
-.PHONY : basestation_byteprinter.cpp.s
+networkutils_byteprinter.cpp.s:
+	cd /home/will/Projects/tuntap && $(MAKE) -f networkutils/CMakeFiles/networkutils.dir/build.make networkutils/CMakeFiles/networkutils.dir/networkutils_byteprinter.cpp.s
+.PHONY : networkutils_byteprinter.cpp.s
 
 # Help Target
 help:
@@ -145,9 +145,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... networkutils"
 	@echo "... rebuild_cache"
-	@echo "... basestation_byteprinter.o"
-	@echo "... basestation_byteprinter.i"
-	@echo "... basestation_byteprinter.s"
+	@echo "... networkutils_byteprinter.o"
+	@echo "... networkutils_byteprinter.i"
+	@echo "... networkutils_byteprinter.s"
 .PHONY : help
 
 

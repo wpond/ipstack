@@ -1,5 +1,7 @@
 *.o
-*.bin
+*.a
+Makefile
+SoftNetworkAdapter
 .vscode/*
 CMakeCache.txt
 CMakeFiles

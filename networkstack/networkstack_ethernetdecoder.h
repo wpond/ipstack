@@ -1,13 +1,13 @@
-#ifndef BASESTATION_ETHERNETDECODER_H
-#define BASESTATION_ETHERNETDECODER_H
+#ifndef NETWORKSTACK_ETHERNETDECODER_H
+#define NETWORKSTACK_ETHERNETDECODER_H
 
-#include "basestation_packet.h"
-#include "basestation_byteprinter.h"
+#include "networkstack_packet.h"
+#include "networkutils_byteprinter.h"
 
 #include <memory>
 #include <ostream>
 
-namespace basestation
+namespace networkstack
 {
 
 class EthernetDecoder
@@ -59,8 +59,8 @@ inline unsigned int EthernetDecoder::payloadSize() const
 inline std::ostream& operator<<(std::ostream& stream, const EthernetDecoder& decoder)
 {
     return stream << "[EthernetPacket "
-                  << "source = " << BytePrinter(decoder.sourceMac(), 6) << ", "
-                  << "destination = " << BytePrinter(decoder.destinationMac(), 6) << ", "
+                  << "source = " << networkutils::BytePrinter(decoder.sourceMac(), 6) << ", "
+                  << "destination = " << networkutils::BytePrinter(decoder.destinationMac(), 6) << ", "
                   << "type = " << decoder.type()
                   << "]";
 }

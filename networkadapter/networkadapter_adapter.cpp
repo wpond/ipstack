@@ -1,4 +1,4 @@
-#include "basestation_networkadapter.h"
+#include "networkadapter_adapter.h"
 
 #include <sstream>
 #include <stdexcept>
@@ -18,7 +18,7 @@
 #include <linux/if_tun.h>
 #include <linux/ioctl.h>
 
-namespace basestation
+namespace networkadapter
 {
 
 namespace
@@ -30,7 +30,7 @@ const std::string MASK = "255.255.255.0";
 
 }
 
-NetworkAdapter::NetworkAdapter()
+Adapter::Adapter()
     : mStopFlag(false), mReadThread(0), mWriteThread(0)
 {
     // Open interface
@@ -135,13 +135,13 @@ NetworkAdapter::NetworkAdapter()
     }
 
     // Setup threads
-    std::function<void(std::shared_ptr<const Packet>)> callback =
-        std::bind(&NetworkAdapter::notify, this, std::placeholders::_1);
-    mReadThread = new std::thread(NetworkReader(mFd, callback, mStopFlag));
+    std::function<void(std::shared_ptr<const networkstack::Packet>)> callback =
+        std::bind(&Adapter::notify, this, std::placeholders::_1);
+    mReadThread = new std::thread(Reader(mFd, callback, mStopFlag));
     //mWriteThread = new std::thread(NetworkWriter(mFd, &mWriteQueue, &mStopFlag));
 }
 
-NetworkAdapter::~NetworkAdapter()
+Adapter::~Adapter()
 {
     mStopFlag = true;
 
@@ -155,12 +155,12 @@ NetworkAdapter::~NetworkAdapter()
     close(mFd);
 }
 
-const std::string& NetworkAdapter::interface() const
+const std::string& Adapter::interface() const
 {
     return mInterface;
 }
 
-void NetworkAdapter::attach(NetworkObserver* observer)
+void Adapter::attach(Observer* observer)
 {
     if (!observer)
     {
@@ -170,7 +170,7 @@ void NetworkAdapter::attach(NetworkObserver* observer)
     mObservers.insert(observer);
 }
 
-void NetworkAdapter::detatch(NetworkObserver* observer)
+void Adapter::detatch(Observer* observer)
 {
     if (!observer)
     {
@@ -180,13 +180,13 @@ void NetworkAdapter::detatch(NetworkObserver* observer)
     mObservers.erase(observer);
 }
 
-void NetworkAdapter::notify(std::shared_ptr<const Packet> packet)
+void Adapter::notify(std::shared_ptr<const networkstack::Packet> packet)
 {
     // TODO: could this be more efficient? do we have to join on the threads
     std::vector<std::thread> threads;
     for (auto observer : mObservers)
     {
-        std::function<void()> func = std::bind(&NetworkObserver::receive, &(*observer), this, packet);
+        std::function<void()> func = std::bind(&Observer::receive, &(*observer), this, packet);
         threads.emplace_back(std::thread(func));
     }
     for (auto & thread : threads)
@@ -195,7 +195,7 @@ void NetworkAdapter::notify(std::shared_ptr<const Packet> packet)
     }
 }
 
-void NetworkAdapter::send(const std::shared_ptr<Packet>& packet)
+void Adapter::send(const std::shared_ptr<networkstack::Packet>& packet)
 {
     const int bytes = write(mFd, packet->data(), packet->size());
     if (bytes != packet->size())

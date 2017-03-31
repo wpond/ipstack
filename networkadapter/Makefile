@@ -112,101 +112,101 @@ networkadapter/fast:
 	cd /home/will/Projects/tuntap && $(MAKE) -f networkadapter/CMakeFiles/networkadapter.dir/build.make networkadapter/CMakeFiles/networkadapter.dir/build
 .PHONY : networkadapter/fast
 
-basestation_networkadapter.o: basestation_networkadapter.cpp.o
-.PHONY : basestation_networkadapter.o
+networkadapter_adapter.o: networkadapter_adapter.cpp.o
+.PHONY : networkadapter_adapter.o
 
 # target to build an object file
-basestation_networkadapter.cpp.o:
-	cd /home/will/Projects/tuntap && $(MAKE) -f networkadapter/CMakeFiles/networkadapter.dir/build.make networkadapter/CMakeFiles/networkadapter.dir/basestation_networkadapter.cpp.o
-.PHONY : basestation_networkadapter.cpp.o
+networkadapter_adapter.cpp.o:
+	cd /home/will/Projects/tuntap && $(MAKE) -f networkadapter/CMakeFiles/networkadapter.dir/build.make networkadapter/CMakeFiles/networkadapter.dir/networkadapter_adapter.cpp.o
+.PHONY : networkadapter_adapter.cpp.o
 
-basestation_networkadapter.i: basestation_networkadapter.cpp.i
-.PHONY : basestation_networkadapter.i
+networkadapter_adapter.i: networkadapter_adapter.cpp.i
+.PHONY : networkadapter_adapter.i
 
 # target to preprocess a source file
-basestation_networkadapter.cpp.i:
-	cd /home/will/Projects/tuntap && $(MAKE) -f networkadapter/CMakeFiles/networkadapter.dir/build.make networkadapter/CMakeFiles/networkadapter.dir/basestation_networkadapter.cpp.i
-.PHONY : basestation_networkadapter.cpp.i
+networkadapter_adapter.cpp.i:
+	cd /home/will/Projects/tuntap && $(MAKE) -f networkadapter/CMakeFiles/networkadapter.dir/build.make networkadapter/CMakeFiles/networkadapter.dir/networkadapter_adapter.cpp.i
+.PHONY : networkadapter_adapter.cpp.i
 
-basestation_networkadapter.s: basestation_networkadapter.cpp.s
-.PHONY : basestation_networkadapter.s
+networkadapter_adapter.s: networkadapter_adapter.cpp.s
+.PHONY : networkadapter_adapter.s
 
 # target to generate assembly for a file
-basestation_networkadapter.cpp.s:
-	cd /home/will/Projects/tuntap && $(MAKE) -f networkadapter/CMakeFiles/networkadapter.dir/build.make networkadapter/CMakeFiles/networkadapter.dir/basestation_networkadapter.cpp.s
-.PHONY : basestation_networkadapter.cpp.s
+networkadapter_adapter.cpp.s:
+	cd /home/will/Projects/tuntap && $(MAKE) -f networkadapter/CMakeFiles/networkadapter.dir/build.make networkadapter/CMakeFiles/networkadapter.dir/networkadapter_adapter.cpp.s
+.PHONY : networkadapter_adapter.cpp.s
 
-basestation_networkobserver.o: basestation_networkobserver.cpp.o
-.PHONY : basestation_networkobserver.o
+networkadapter_observer.o: networkadapter_observer.cpp.o
+.PHONY : networkadapter_observer.o
 
 # target to build an object file
-basestation_networkobserver.cpp.o:
-	cd /home/will/Projects/tuntap && $(MAKE) -f networkadapter/CMakeFiles/networkadapter.dir/build.make networkadapter/CMakeFiles/networkadapter.dir/basestation_networkobserver.cpp.o
-.PHONY : basestation_networkobserver.cpp.o
+networkadapter_observer.cpp.o:
+	cd /home/will/Projects/tuntap && $(MAKE) -f networkadapter/CMakeFiles/networkadapter.dir/build.make networkadapter/CMakeFiles/networkadapter.dir/networkadapter_observer.cpp.o
+.PHONY : networkadapter_observer.cpp.o
 
-basestation_networkobserver.i: basestation_networkobserver.cpp.i
-.PHONY : basestation_networkobserver.i
+networkadapter_observer.i: networkadapter_observer.cpp.i
+.PHONY : networkadapter_observer.i
 
 # target to preprocess a source file
-basestation_networkobserver.cpp.i:
-	cd /home/will/Projects/tuntap && $(MAKE) -f networkadapter/CMakeFiles/networkadapter.dir/build.make networkadapter/CMakeFiles/networkadapter.dir/basestation_networkobserver.cpp.i
-.PHONY : basestation_networkobserver.cpp.i
+networkadapter_observer.cpp.i:
+	cd /home/will/Projects/tuntap && $(MAKE) -f networkadapter/CMakeFiles/networkadapter.dir/build.make networkadapter/CMakeFiles/networkadapter.dir/networkadapter_observer.cpp.i
+.PHONY : networkadapter_observer.cpp.i
 
-basestation_networkobserver.s: basestation_networkobserver.cpp.s
-.PHONY : basestation_networkobserver.s
+networkadapter_observer.s: networkadapter_observer.cpp.s
+.PHONY : networkadapter_observer.s
 
 # target to generate assembly for a file
-basestation_networkobserver.cpp.s:
-	cd /home/will/Projects/tuntap && $(MAKE) -f networkadapter/CMakeFiles/networkadapter.dir/build.make networkadapter/CMakeFiles/networkadapter.dir/basestation_networkobserver.cpp.s
-.PHONY : basestation_networkobserver.cpp.s
+networkadapter_observer.cpp.s:
+	cd /home/will/Projects/tuntap && $(MAKE) -f networkadapter/CMakeFiles/networkadapter.dir/build.make networkadapter/CMakeFiles/networkadapter.dir/networkadapter_observer.cpp.s
+.PHONY : networkadapter_observer.cpp.s
 
-basestation_networkreader.o: basestation_networkreader.cpp.o
-.PHONY : basestation_networkreader.o
+networkadapter_reader.o: networkadapter_reader.cpp.o
+.PHONY : networkadapter_reader.o
 
 # target to build an object file
-basestation_networkreader.cpp.o:
-	cd /home/will/Projects/tuntap && $(MAKE) -f networkadapter/CMakeFiles/networkadapter.dir/build.make networkadapter/CMakeFiles/networkadapter.dir/basestation_networkreader.cpp.o
-.PHONY : basestation_networkreader.cpp.o
+networkadapter_reader.cpp.o:
+	cd /home/will/Projects/tuntap && $(MAKE) -f networkadapter/CMakeFiles/networkadapter.dir/build.make networkadapter/CMakeFiles/networkadapter.dir/networkadapter_reader.cpp.o
+.PHONY : networkadapter_reader.cpp.o
 
-basestation_networkreader.i: basestation_networkreader.cpp.i
-.PHONY : basestation_networkreader.i
+networkadapter_reader.i: networkadapter_reader.cpp.i
+.PHONY : networkadapter_reader.i
 
 # target to preprocess a source file
-basestation_networkreader.cpp.i:
-	cd /home/will/Projects/tuntap && $(MAKE) -f networkadapter/CMakeFiles/networkadapter.dir/build.make networkadapter/CMakeFiles/networkadapter.dir/basestation_networkreader.cpp.i
-.PHONY : basestation_networkreader.cpp.i
+networkadapter_reader.cpp.i:
+	cd /home/will/Projects/tuntap && $(MAKE) -f networkadapter/CMakeFiles/networkadapter.dir/build.make networkadapter/CMakeFiles/networkadapter.dir/networkadapter_reader.cpp.i
+.PHONY : networkadapter_reader.cpp.i
 
-basestation_networkreader.s: basestation_networkreader.cpp.s
-.PHONY : basestation_networkreader.s
+networkadapter_reader.s: networkadapter_reader.cpp.s
+.PHONY : networkadapter_reader.s
 
 # target to generate assembly for a file
-basestation_networkreader.cpp.s:
-	cd /home/will/Projects/tuntap && $(MAKE) -f networkadapter/CMakeFiles/networkadapter.dir/build.make networkadapter/CMakeFiles/networkadapter.dir/basestation_networkreader.cpp.s
-.PHONY : basestation_networkreader.cpp.s
+networkadapter_reader.cpp.s:
+	cd /home/will/Projects/tuntap && $(MAKE) -f networkadapter/CMakeFiles/networkadapter.dir/build.make networkadapter/CMakeFiles/networkadapter.dir/networkadapter_reader.cpp.s
+.PHONY : networkadapter_reader.cpp.s
 
-basestation_networkwriter.o: basestation_networkwriter.cpp.o
-.PHONY : basestation_networkwriter.o
+networkadapter_writer.o: networkadapter_writer.cpp.o
+.PHONY : networkadapter_writer.o
 
 # target to build an object file
-basestation_networkwriter.cpp.o:
-	cd /home/will/Projects/tuntap && $(MAKE) -f networkadapter/CMakeFiles/networkadapter.dir/build.make networkadapter/CMakeFiles/networkadapter.dir/basestation_networkwriter.cpp.o
-.PHONY : basestation_networkwriter.cpp.o
+networkadapter_writer.cpp.o:
+	cd /home/will/Projects/tuntap && $(MAKE) -f networkadapter/CMakeFiles/networkadapter.dir/build.make networkadapter/CMakeFiles/networkadapter.dir/networkadapter_writer.cpp.o
+.PHONY : networkadapter_writer.cpp.o
 
-basestation_networkwriter.i: basestation_networkwriter.cpp.i
-.PHONY : basestation_networkwriter.i
+networkadapter_writer.i: networkadapter_writer.cpp.i
+.PHONY : networkadapter_writer.i
 
 # target to preprocess a source file
-basestation_networkwriter.cpp.i:
-	cd /home/will/Projects/tuntap && $(MAKE) -f networkadapter/CMakeFiles/networkadapter.dir/build.make networkadapter/CMakeFiles/networkadapter.dir/basestation_networkwriter.cpp.i
-.PHONY : basestation_networkwriter.cpp.i
+networkadapter_writer.cpp.i:
+	cd /home/will/Projects/tuntap && $(MAKE) -f networkadapter/CMakeFiles/networkadapter.dir/build.make networkadapter/CMakeFiles/networkadapter.dir/networkadapter_writer.cpp.i
+.PHONY : networkadapter_writer.cpp.i
 
-basestation_networkwriter.s: basestation_networkwriter.cpp.s
-.PHONY : basestation_networkwriter.s
+networkadapter_writer.s: networkadapter_writer.cpp.s
+.PHONY : networkadapter_writer.s
 
 # target to generate assembly for a file
-basestation_networkwriter.cpp.s:
-	cd /home/will/Projects/tuntap && $(MAKE) -f networkadapter/CMakeFiles/networkadapter.dir/build.make networkadapter/CMakeFiles/networkadapter.dir/basestation_networkwriter.cpp.s
-.PHONY : basestation_networkwriter.cpp.s
+networkadapter_writer.cpp.s:
+	cd /home/will/Projects/tuntap && $(MAKE) -f networkadapter/CMakeFiles/networkadapter.dir/build.make networkadapter/CMakeFiles/networkadapter.dir/networkadapter_writer.cpp.s
+.PHONY : networkadapter_writer.cpp.s
 
 # Help Target
 help:
@@ -217,18 +217,18 @@ help:
 	@echo "... edit_cache"
 	@echo "... networkadapter"
 	@echo "... rebuild_cache"
-	@echo "... basestation_networkadapter.o"
-	@echo "... basestation_networkadapter.i"
-	@echo "... basestation_networkadapter.s"
-	@echo "... basestation_networkobserver.o"
-	@echo "... basestation_networkobserver.i"
-	@echo "... basestation_networkobserver.s"
-	@echo "... basestation_networkreader.o"
-	@echo "... basestation_networkreader.i"
-	@echo "... basestation_networkreader.s"
-	@echo "... basestation_networkwriter.o"
-	@echo "... basestation_networkwriter.i"
-	@echo "... basestation_networkwriter.s"
+	@echo "... networkadapter_adapter.o"
+	@echo "... networkadapter_adapter.i"
+	@echo "... networkadapter_adapter.s"
+	@echo "... networkadapter_observer.o"
+	@echo "... networkadapter_observer.i"
+	@echo "... networkadapter_observer.s"
+	@echo "... networkadapter_reader.o"
+	@echo "... networkadapter_reader.i"
+	@echo "... networkadapter_reader.s"
+	@echo "... networkadapter_writer.o"
+	@echo "... networkadapter_writer.i"
+	@echo "... networkadapter_writer.s"
 .PHONY : help
 
 

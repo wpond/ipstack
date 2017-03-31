@@ -9,7 +9,7 @@ include_directories("../networkutils")
 
 add_library(
     networkadapter
-    basestation_networkadapter.cpp
-    basestation_networkobserver.cpp
-    basestation_networkreader.cpp
-    basestation_networkwriter.cpp)
+    networkadapter_adapter.cpp
+    networkadapter_observer.cpp
+    networkadapter_reader.cpp
+    networkadapter_writer.cpp)

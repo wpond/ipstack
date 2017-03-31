@@ -1,16 +1,16 @@
-#include "basestation_networkwriter.h"
+#include "networkadapter_writer.h"
 
 #include <stdexcept>
 #include <sstream>
 
 #include <unistd.h>
 
-namespace basestation
+namespace networkadapter
 {
 
-NetworkWriter::NetworkWriter(
+Writer::Writer(
     int fd,
-    std::queue<std::shared_ptr<Packet> >* queue,
+    std::queue<std::shared_ptr<networkstack::Packet> >* queue,
     const std::atomic_bool* stopFlag)
     : mStopFlag(stopFlag), mFd(fd), mQueue(queue)
 {
@@ -25,7 +25,7 @@ NetworkWriter::NetworkWriter(
     }
 }
 
-void NetworkWriter::operator()()
+void Writer::operator()()
 {
     while (!*mStopFlag)
     {
@@ -34,7 +34,7 @@ void NetworkWriter::operator()()
             continue;
         }
 
-        std::shared_ptr<Packet> packet = mQueue->front();
+        std::shared_ptr<networkstack::Packet> packet = mQueue->front();
 
         const int bytes = write(mFd, packet->data(), packet->size());
         if (bytes != packet->size())

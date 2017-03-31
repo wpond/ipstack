@@ -1,9 +1,9 @@
-#include "basestation_packet.h"
+#include "networkstack_packet.h"
 
 #include <cstring>
 #include <stdexcept>
 
-namespace basestation
+namespace networkstack
 {
 
 Packet::Packet(const char* data, int size)
