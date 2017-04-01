@@ -21,7 +21,7 @@ Packet::Packet(std::shared_ptr<Packet> packet, int start, int size)
         throw std::runtime_error("Cannot create packet, passed NULL parent packet");
     }
 
-    if (packet->size() > (size + start))
+    if (packet->size() < (size + start))
     {
         throw std::runtime_error("Cannot create packet, passed too small parent packet");
     }
@@ -32,7 +32,10 @@ Packet::Packet(std::shared_ptr<Packet> packet, int start, int size)
 
 Packet::~Packet()
 {
-    delete[] mData;
+    if (!mParent)
+    {
+        delete[] mData;
+    }
 }
 
 const char* Packet::data() const

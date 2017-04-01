@@ -16,6 +16,8 @@ public:
     const char* data() const;
     int size() const;
 private:
+    Packet(const Packet& that);
+
     char* mData;
     int mSize;
     std::shared_ptr<Packet> mParent;
