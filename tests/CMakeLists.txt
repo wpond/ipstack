@@ -17,6 +17,7 @@ target_link_libraries(
     Tests
     gtest_main
     gtest
+    gmock
     networkadapter
     networkstack
     networkutils)
