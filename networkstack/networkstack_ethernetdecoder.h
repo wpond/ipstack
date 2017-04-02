@@ -2,7 +2,7 @@
 #define NETWORKSTACK_ETHERNETDECODER_H
 
 #include "networkstack_packet.h"
-#include "networkutils_byteprinter.h"
+#include "networkutils_byteoutputter.h"
 
 #include <memory>
 #include <ostream>
@@ -59,8 +59,8 @@ inline unsigned int EthernetDecoder::payloadSize() const
 inline std::ostream& operator<<(std::ostream& stream, const EthernetDecoder& decoder)
 {
     return stream << "[EthernetPacket "
-                  << "source = " << networkutils::BytePrinter(decoder.sourceMac(), 6) << ", "
-                  << "destination = " << networkutils::BytePrinter(decoder.destinationMac(), 6) << ", "
+                  << "source = " << networkutils::ByteOutputter(decoder.sourceMac(), 6) << ", "
+                  << "destination = " << networkutils::ByteOutputter(decoder.destinationMac(), 6) << ", "
                   << "type = " << decoder.type()
                   << "]";
 }

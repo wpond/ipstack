@@ -9,4 +9,4 @@ include_directories("../networkstack")
 
 add_library(
     networkutils
-    networkutils_byteprinter.cpp)
+    networkutils_byteoutputter.cpp)

@@ -11,7 +11,8 @@ include_directories("../networkstack")
 include_directories("../networkutils")
 
 add_executable(Tests
-    ${PROJECT_SOURCE_DIR}/networkstack_packet.t.cpp)
+    ${PROJECT_SOURCE_DIR}/networkstack_packet.t.cpp
+    ${PROJECT_SOURCE_DIR}/networkutils_byteoutputter.t.cpp)
 target_link_libraries(
     Tests
     gtest_main

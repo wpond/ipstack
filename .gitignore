@@ -3,6 +3,7 @@
 Makefile
 SoftNetworkAdapter
 Tests
+Makefile
 .vscode/*
 CMakeCache.txt
 CMakeFiles

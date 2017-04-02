@@ -1,11 +1,12 @@
 
-#include "networkadapter_adapter.h"
-#include "networkstack_arpobserver.h"
+#include <networkadapter_adapter.h>
+#include <networkstack_arpobserver.h>
 
 // Only used for debug observer
-#include "networkadapter_observer.h"
-#include "networkstack_ethernetdecoder.h"
-#include "networkutils_byteprinter.h"
+#include <networkadapter_observer.h>
+#include <networkstack_ethernetdecoder.h>
+#include <networkstack_packet.h>
+#include <networkutils_byteoutputter.h>
 
 #include <iostream>
 #include <stdexcept>
@@ -26,13 +27,13 @@ public:
 
         std::cout << "Debug observer received packet, size = " << packet->size() << "\n";
 
-        std::cout << "Ethernet header, " << networkutils::BytePrinter(packet->data(), 14, 6) << "\n";
+        std::cout << "Ethernet header, " << networkutils::ByteOutputter(packet->data(), 14, 6) << "\n";
 
         networkstack::EthernetDecoder decoder(packet);
         std::cout << "Ethernet fields, " << decoder << "\n";
 
         unsigned short type = decoder.type();
-        std::cout << "type = " << networkutils::BytePrinter(&type, 2) << "\n";
+        std::cout << "type = " << networkutils::ByteOutputter(&type, 2) << "\n";
     }
 };
 
