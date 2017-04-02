@@ -11,13 +11,14 @@ include_directories("../networkstack")
 include_directories("../networkutils")
 
 add_executable(Tests
+    ${PROJECT_SOURCE_DIR}/tests_testadapter.cpp
     ${PROJECT_SOURCE_DIR}/networkutils_packet.t.cpp
-    ${PROJECT_SOURCE_DIR}/networkutils_byteoutputter.t.cpp)
+    ${PROJECT_SOURCE_DIR}/networkutils_byteoutputter.t.cpp
+    ${PROJECT_SOURCE_DIR}/networkstack_stack.t.cpp)
 target_link_libraries(
     Tests
     gtest_main
     gtest
-    gmock
     networkadapter
     networkstack
     networkutils)
