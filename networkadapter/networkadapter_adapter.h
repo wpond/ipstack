@@ -10,7 +10,8 @@
 #include <mutex>
 #include <condition_variable>
 
-#include "networkstack_packet.h"
+#include <networkutils_packet.h>
+
 #include "networkadapter_reader.h"
 #include "networkadapter_writer.h"
 #include "networkadapter_observer.h"
@@ -30,7 +31,7 @@ public:
     void detatch(Observer* observer);
 
     // Send a packet
-    void send(const std::shared_ptr<networkstack::Packet>& packet);
+    void send(const std::shared_ptr<networkutils::Packet>& packet);
 
 private:
     std::string mInterface;
@@ -38,11 +39,11 @@ private:
     int mSocket;
 
     // Notify observers of packet
-    void notify(std::shared_ptr<const networkstack::Packet> packet);
+    void notify(std::shared_ptr<const networkutils::Packet> packet);
 
     std::set<Observer*> mObservers;
 
-    std::queue<std::shared_ptr<networkstack::Packet> > mSendQueue;
+    std::queue<std::shared_ptr<networkutils::Packet> > mSendQueue;
     std::mutex mSendLock;  // Lock this to access send queue
     std::condition_variable mSendCondition;  // Used to notify sender that there are packets
 

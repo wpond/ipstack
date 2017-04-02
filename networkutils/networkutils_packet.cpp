@@ -1,9 +1,9 @@
-#include "networkstack_packet.h"
+#include "networkutils_packet.h"
 
 #include <cstring>
 #include <stdexcept>
 
-namespace networkstack
+namespace networkutils
 {
 
 Packet::Packet(const char* data, int size)

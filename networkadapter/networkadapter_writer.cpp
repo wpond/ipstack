@@ -10,7 +10,7 @@ namespace networkadapter
 
 Writer::Writer(
     int fd,
-    std::queue<std::shared_ptr<networkstack::Packet> >* queue,
+    std::queue<std::shared_ptr<networkutils::Packet> >* queue,
     const std::atomic_bool* stopFlag)
     : mStopFlag(stopFlag), mFd(fd), mQueue(queue)
 {
@@ -34,7 +34,7 @@ void Writer::operator()()
             continue;
         }
 
-        std::shared_ptr<networkstack::Packet> packet = mQueue->front();
+        std::shared_ptr<networkutils::Packet> packet = mQueue->front();
 
         const int bytes = write(mFd, packet->data(), packet->size());
         if (bytes != packet->size())

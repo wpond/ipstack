@@ -5,7 +5,7 @@ namespace networkstack
 
 void ArpObserver::receive(
     networkadapter::Adapter* network,
-    std::shared_ptr<const Packet> packet)
+    std::shared_ptr<const networkutils::Packet> packet)
 {
     // do nothing
 }

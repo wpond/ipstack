@@ -1,8 +1,8 @@
 #ifndef NETWORKSTACK_ETHERNETDECODER_H
 #define NETWORKSTACK_ETHERNETDECODER_H
 
-#include "networkstack_packet.h"
-#include "networkutils_byteoutputter.h"
+#include <networkutils_packet.h>
+#include <networkutils_byteoutputter.h>
 
 #include <memory>
 #include <ostream>
@@ -13,7 +13,7 @@ namespace networkstack
 class EthernetDecoder
 {
 public:
-    EthernetDecoder(std::shared_ptr<const Packet> packet);
+    EthernetDecoder(std::shared_ptr<const networkutils::Packet> packet);
 
     const char* destinationMac() const;
     const char* sourceMac() const;
@@ -22,7 +22,7 @@ public:
     unsigned int payloadSize() const;
 
 private:
-    std::shared_ptr<const Packet> mPacket;
+    std::shared_ptr<const networkutils::Packet> mPacket;
 
     char mDestinationMac[6];
     char mSourceMac[6];

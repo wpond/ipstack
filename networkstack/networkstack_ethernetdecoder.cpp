@@ -8,7 +8,7 @@
 namespace networkstack
 {
 
-EthernetDecoder::EthernetDecoder(std::shared_ptr<const Packet> packet)
+EthernetDecoder::EthernetDecoder(std::shared_ptr<const networkutils::Packet> packet)
     : mPacket(packet)
 {
     if (!mPacket)

@@ -1,9 +1,9 @@
-#ifndef NETWORKSTACK_PACKET_H
-#define NETWORKSTACK_PACKET_H
+#ifndef NETWORKUTILS_PACKET_H
+#define NETWORKUTILS_PACKET_H
 
 #include <memory>
 
-namespace networkstack
+namespace networkutils
 {
 
 class Packet

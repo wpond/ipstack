@@ -135,7 +135,7 @@ Adapter::Adapter()
     }
 
     // Setup threads
-    std::function<void(std::shared_ptr<const networkstack::Packet>)> callback =
+    std::function<void(std::shared_ptr<const networkutils::Packet>)> callback =
         std::bind(&Adapter::notify, this, std::placeholders::_1);
     mReadThread = new std::thread(Reader(mFd, callback, mStopFlag));
     //mWriteThread = new std::thread(NetworkWriter(mFd, &mWriteQueue, &mStopFlag));
@@ -180,7 +180,7 @@ void Adapter::detatch(Observer* observer)
     mObservers.erase(observer);
 }
 
-void Adapter::notify(std::shared_ptr<const networkstack::Packet> packet)
+void Adapter::notify(std::shared_ptr<const networkutils::Packet> packet)
 {
     // TODO: could this be more efficient? do we have to join on the threads
     std::vector<std::thread> threads;
@@ -195,7 +195,7 @@ void Adapter::notify(std::shared_ptr<const networkstack::Packet> packet)
     }
 }
 
-void Adapter::send(const std::shared_ptr<networkstack::Packet>& packet)
+void Adapter::send(const std::shared_ptr<networkutils::Packet>& packet)
 {
     const int bytes = write(mFd, packet->data(), packet->size());
     if (bytes != packet->size())

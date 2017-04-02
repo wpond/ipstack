@@ -1,9 +1,9 @@
 #ifndef NETWORKSTACK_ARPOBSERVER_H
 #define NETWORKSTACK_ARPOBSERVER_H
 
-#include "networkstack_packet.h"
-#include "networkadapter_adapter.h"
-#include "networkadapter_observer.h"
+#include <networkutils_packet.h>
+#include <networkadapter_adapter.h>
+#include <networkadapter_observer.h>
 
 #include <memory>
 
@@ -15,7 +15,7 @@ class ArpObserver : public networkadapter::Observer
 public:
     void receive(
         networkadapter::Adapter* network,
-        std::shared_ptr<const Packet> packet);
+        std::shared_ptr<const networkutils::Packet> packet);
 private:
 
 };

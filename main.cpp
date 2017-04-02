@@ -18,7 +18,7 @@ class DebugObserver : public networkadapter::Observer
 {
 public:
     DebugObserver() {}
-    void receive(networkadapter::Adapter* network, std::shared_ptr<const networkstack::Packet> packet)
+    void receive(networkadapter::Adapter* network, std::shared_ptr<const networkutils::Packet> packet)
     {
         if (!packet)
         {

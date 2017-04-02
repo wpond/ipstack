@@ -1,7 +1,7 @@
 #ifndef NETWORKADAPTER_READER_H
 #define NETWORKADAPTER_READER_H
 
-#include "networkstack_packet.h"
+#include <networkutils_packet.h>
 
 #include <atomic>
 #include <memory>
@@ -15,13 +15,13 @@ class Reader
 public:
     Reader(
         int fd,
-        std::function<void(std::shared_ptr<const networkstack::Packet>)> callback,
+        std::function<void(std::shared_ptr<const networkutils::Packet>)> callback,
         const std::atomic_bool& stopFlag);
 
     void operator()();
 private:
     int mFd;
-    std::function<void(std::shared_ptr<const networkstack::Packet>)> mCallback;
+    std::function<void(std::shared_ptr<const networkutils::Packet>)> mCallback;
     const std::atomic_bool& mStopFlag;
 };
 
