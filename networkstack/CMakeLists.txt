@@ -9,5 +9,4 @@ include_directories("../networkutils")
 
 add_library(
     networkstack
-    networkstack_arpobserver.cpp
-    networkstack_ethernetdecoder.cpp)
+    )
