@@ -1,5 +1,5 @@
-#ifndef TESTS_TESTADAPTER_H
-#define TESTS_TESTADAPTER_H
+#ifndef TESTS_ADAPTER_H
+#define TESTS_ADAPTER_H
 
 #include <networkadapter_adapter.h>
 #include <networkadapter_observer.h>
@@ -14,11 +14,11 @@
 namespace tests
 {
 
-class TestAdapter : public networkadapter::Adapter
+class Adapter : public networkadapter::Adapter
 {
 public:
-    TestAdapter(const std::string& interface, const char* hardwareAddress);
-    virtual ~TestAdapter();
+    Adapter(const std::string& interface, const char* hardwareAddress);
+    virtual ~Adapter();
 
     virtual const std::string& interface() const;
     virtual const char* hardwareAddress() const;
@@ -38,6 +38,34 @@ private:
     std::string mInterface;
     const char* mHardwareAddress;
 };
+
+class Observer : public networkadapter::Observer
+{
+public:
+    Observer() {}
+    virtual ~Observer() {}
+    virtual void receive(
+        networkadapter::Adapter* adapter,
+        std::shared_ptr<const networkutils::Packet> packet)
+    {
+        mQueue.push(packet);
+    }
+
+    std::shared_ptr<const networkutils::Packet> received()
+    {
+        std::shared_ptr<const networkutils::Packet> packet;
+        if (!mQueue.empty())
+        {
+            packet = mQueue.front();
+            mQueue.pop();
+        }
+        return packet;
+    }
+
+private:
+    std::queue<std::shared_ptr<const networkutils::Packet> > mQueue;
+};
+
 
 }
 

@@ -1,30 +1,30 @@
-#include "tests_testadapter.h"
+#include "tests_adapter.h"
 
 namespace tests
 {
 
-TestAdapter::TestAdapter(const std::string& interface, const char* hardwareAddress)
+Adapter::Adapter(const std::string& interface, const char* hardwareAddress)
     : mInterface(interface), mHardwareAddress(hardwareAddress)
 {
 
 }
 
-TestAdapter::~TestAdapter()
+Adapter::~Adapter()
 {
 
 }
 
-const std::string& TestAdapter::interface() const
+const std::string& Adapter::interface() const
 {
     return mInterface;
 }
 
-const char* TestAdapter::hardwareAddress() const
+const char* Adapter::hardwareAddress() const
 {
     return mHardwareAddress;
 }
 
-void TestAdapter::attach(networkadapter::Observer* observer)
+void Adapter::attach(networkadapter::Observer* observer)
 {
     if (!observer)
     {
@@ -34,7 +34,7 @@ void TestAdapter::attach(networkadapter::Observer* observer)
     mObservers.insert(observer);
 }
 
-void TestAdapter::detatch(networkadapter::Observer* observer)
+void Adapter::detatch(networkadapter::Observer* observer)
 {
     if (!observer)
     {
@@ -44,12 +44,12 @@ void TestAdapter::detatch(networkadapter::Observer* observer)
     mObservers.erase(observer);
 }
 
-void TestAdapter::send(const std::shared_ptr<networkutils::Packet>& packet)
+void Adapter::send(const std::shared_ptr<networkutils::Packet>& packet)
 {
     mSentQueue.push(packet);
 }
 
-void TestAdapter::testReceive(std::shared_ptr<const networkutils::Packet> packet)
+void Adapter::testReceive(std::shared_ptr<const networkutils::Packet> packet)
 {
     for (networkadapter::Observer* observer : mObservers)
     {
@@ -57,7 +57,7 @@ void TestAdapter::testReceive(std::shared_ptr<const networkutils::Packet> packet
     }
 }
 
-std::shared_ptr<networkutils::Packet> TestAdapter::testSent()
+std::shared_ptr<networkutils::Packet> Adapter::testSent()
 {
     std::shared_ptr<networkutils::Packet> packet;
     if (!mSentQueue.empty())
