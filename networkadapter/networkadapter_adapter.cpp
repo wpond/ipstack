@@ -111,6 +111,21 @@ Adapter::Adapter()
         }
     }
 
+    {
+        rc = ioctl(mSocket, SIOCGIFHWADDR, &ifr);
+        if (rc < 0)
+        {
+            close(mSocket);
+            close(mFd);
+            std::ostringstream oss;
+            oss << "Faield to get hardware address, "
+                << "rc = " << rc << ", "
+                << "errno = " << strerror(errno);
+            throw std::runtime_error(oss.str());
+        }
+        memcpy(mHardwareAddress, ifr.ifr_hwaddr.sa_data, sizeof(mHardwareAddress));
+    }
+
     rc = ioctl(mSocket, SIOCGIFFLAGS, &ifr);
     if (rc < 0)
     {
@@ -158,6 +173,11 @@ Adapter::~Adapter()
 const std::string& Adapter::interface() const
 {
     return mInterface;
+}
+
+const char* Adapter::hardwareAddress() const
+{
+    return mHardwareAddress;
 }
 
 void Adapter::attach(Observer* observer)

@@ -26,6 +26,7 @@ public:
     ~Adapter();
 
     const std::string& interface() const;
+    const char* hardwareAddress() const;
 
     void attach(Observer* observer);
     void detatch(Observer* observer);
@@ -35,6 +36,7 @@ public:
 
 private:
     std::string mInterface;
+    char mHardwareAddress[6];
     int mFd;
     int mSocket;
 
