@@ -5,7 +5,7 @@
 // Only used for debug observer
 #include <networkadapter_observer.h>
 #include <networkstack_ethernetdecoder.h>
-#include <networkstack_packet.h>
+#include <networkutils_packet.h>
 #include <networkutils_byteoutputter.h>
 
 #include <iostream>
