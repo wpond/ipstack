@@ -1,19 +1,8 @@
-#ifndef NETWORKADAPTER_ADAPTER_H
-#define NETWORKADAPTER_ADAPTER_H
-
-#include <string>
-#include <queue>
-#include <memory>
-#include <thread>
-#include <set>
-#include <atomic>
-#include <mutex>
-#include <condition_variable>
+#ifndef NETWORKADAPTER_ADAPTER
+#define NETWORKADAPTER_ADAPTER
 
 #include <networkutils_packet.h>
 
-#include "networkadapter_reader.h"
-#include "networkadapter_writer.h"
 #include "networkadapter_observer.h"
 
 namespace networkadapter
@@ -22,39 +11,17 @@ namespace networkadapter
 class Adapter
 {
 public:
-    Adapter();
-    ~Adapter();
+    Adapter() {}
+    virtual ~Adapter() {};
 
-    const std::string& interface() const;
-    const char* hardwareAddress() const;
+    virtual const std::string& interface() const = 0;
+    virtual const char* hardwareAddress() const = 0;
 
-    void attach(Observer* observer);
-    void detatch(Observer* observer);
+    virtual void attach(Observer* observer) = 0;
+    virtual void detatch(Observer* observer) = 0;
 
     // Send a packet
-    void send(const std::shared_ptr<networkutils::Packet>& packet);
-
-private:
-    std::string mInterface;
-    char mHardwareAddress[6];
-    int mFd;
-    int mSocket;
-
-    // Notify observers of packet
-    void notify(std::shared_ptr<const networkutils::Packet> packet);
-
-    std::set<Observer*> mObservers;
-
-    std::queue<std::shared_ptr<networkutils::Packet> > mSendQueue;
-    std::mutex mSendLock;  // Lock this to access send queue
-    std::condition_variable mSendCondition;  // Used to notify sender that there are packets
-
-    std::atomic_bool mStopFlag;
-
-    // calls notify on receive packet, blocks on select, calls receive() on obs in new thread?
-    std::thread* mReadThread;
-    // waits for a condition, writes all packets in it's queue
-    std::thread* mWriteThread;
+    virtual void send(const std::shared_ptr<networkutils::Packet>& packet) = 0;
 };
 
 }

@@ -1,5 +1,5 @@
 
-#include <networkadapter_adapter.h>
+#include <networkadapter_kerneladapter.h>
 
 // Only used for debug observer
 #include <networkadapter_observer.h>
@@ -36,7 +36,7 @@ int main(int argc, char* argv[])
     try
     {
         // Create network adapter
-        networkadapter::Adapter net;
+        networkadapter::KernelAdapter net;
         std::cout << "Created device " << net.interface() << "\n"
                   << "HW address = " << networkutils::ByteOutputter(net.hardwareAddress(), 6) << "\n";
 

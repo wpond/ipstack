@@ -10,6 +10,7 @@ include_directories("../networkutils")
 add_library(
     networkadapter
     networkadapter_adapter.cpp
+    networkadapter_kerneladapter.cpp
     networkadapter_observer.cpp
     networkadapter_reader.cpp
     networkadapter_writer.cpp)
