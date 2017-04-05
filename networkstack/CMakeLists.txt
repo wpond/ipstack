@@ -9,5 +9,4 @@ include_directories("../networkutils")
 
 add_library(
     networkstack
-    networkstack_stack.cpp
-    networkstack_observer.cpp)
+    networkstack_stack.cpp)

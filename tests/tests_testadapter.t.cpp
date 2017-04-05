@@ -1,17 +1,16 @@
 #include <gtest/gtest.h>
 
 #include <stdexcept>
-#include <queue>
 
-#include <tests_adapter.h>
+#include <tests_testadapter.h>
 
 #include <networkadapter_adapter.h>
 #include <networkutils_packet.h>
 
-TEST(Adapter, Create)
+TEST(TestAdapter, Create)
 {
     const char hardwareAddress[6] = { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06 };
-    tests::Adapter adapter("interface", hardwareAddress);
+    tests::TestAdapter adapter("interface", hardwareAddress);
     ASSERT_EQ("interface", adapter.interface());
     ASSERT_EQ(0x01, adapter.hardwareAddress()[0]);
     ASSERT_EQ(0x02, adapter.hardwareAddress()[1]);
@@ -21,31 +20,75 @@ TEST(Adapter, Create)
     ASSERT_EQ(0x06, adapter.hardwareAddress()[5]);
 }
 
-TEST(Adapter, AttachNull)
+TEST(TestAdapter, AttachNull)
 {
     const char hardwareAddress[6] = { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06 };
-    tests::Adapter adapter("interface", hardwareAddress);
+    tests::TestAdapter adapter("interface", hardwareAddress);
     ASSERT_THROW(adapter.attach(NULL), std::runtime_error);
 }
 
-TEST(Adapter, DetatchNull)
+TEST(TestAdapter, DetatchNull)
 {
     const char hardwareAddress[6] = { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06 };
-    tests::Adapter adapter("interface", hardwareAddress);
+    tests::TestAdapter adapter("interface", hardwareAddress);
     ASSERT_THROW(adapter.attach(NULL), std::runtime_error);
 }
 
-TEST(Adapter, emptySentQueue)
+class Observer : public networkadapter::Observer
+{
+public:
+    Observer() {}
+    virtual ~Observer() {}
+    virtual void receive(
+        networkadapter::Adapter* adapter,
+        std::shared_ptr<const networkutils::Packet> packet)
+    {
+        mQueue.push(packet);
+    }
+
+    std::shared_ptr<const networkutils::Packet> received()
+    {
+        std::shared_ptr<const networkutils::Packet> packet;
+        if (!mQueue.empty())
+        {
+            packet = mQueue.front();
+            mQueue.pop();
+        }
+        return packet;
+    }
+
+private:
+    std::queue<std::shared_ptr<const networkutils::Packet> > mQueue;
+};
+
+
+TEST(TestAdapter, AttachDetatch)
 {
     const char hardwareAddress[6] = { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06 };
-    tests::Adapter adapter("interface", hardwareAddress);
+    tests::TestAdapter adapter("interface", hardwareAddress);
+    Observer observer;
+
+    ASSERT_EQ(0, adapter.testObservers().size());
+    adapter.attach(&observer);
+
+    ASSERT_EQ(1, adapter.testObservers().size());
+    ASSERT_TRUE(adapter.testIsObserver(&observer));
+
+    adapter.detatch(&observer);
+    ASSERT_EQ(0, adapter.testObservers().size());
+}
+
+TEST(TestAdapter, emptySentQueue)
+{
+    const char hardwareAddress[6] = { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06 };
+    tests::TestAdapter adapter("interface", hardwareAddress);
     ASSERT_FALSE(adapter.testSent());
 }
 
-TEST(Adapter, SendToSent)
+TEST(TestAdapter, SendToSent)
 {
     const char hardwareAddress[6] = { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06 };
-    tests::Adapter adapter("interface", hardwareAddress);
+    tests::TestAdapter adapter("interface", hardwareAddress);
 
     const char data[2] = { 0x01, 0x02 };
     std::shared_ptr<networkutils::Packet> packet(new networkutils::Packet(data, 2));
@@ -59,12 +102,12 @@ TEST(Adapter, SendToSent)
     ASSERT_FALSE(adapter.testSent());
 }
 
-TEST(Adapter, ReceiveOne)
+TEST(TestAdapter, ReceiveOne)
 {
     const char hardwareAddress[6] = { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06 };
-    tests::Adapter adapter("interface", hardwareAddress);
+    tests::TestAdapter adapter("interface", hardwareAddress);
 
-    tests::Observer observer;
+    Observer observer;
     adapter.attach(&observer);
     
     const char data[2] = { 0x01, 0x02 };

@@ -12,8 +12,8 @@ include_directories("../networkstack")
 include_directories("../networkutils")
 
 add_executable(Tests
-    ${PROJECT_SOURCE_DIR}/tests_adapter.cpp
-    ${PROJECT_SOURCE_DIR}/tests_adapter.t.cpp
+    ${PROJECT_SOURCE_DIR}/tests_testadapter.cpp
+    ${PROJECT_SOURCE_DIR}/tests_testadapter.t.cpp
     ${PROJECT_SOURCE_DIR}/networkutils_packet.t.cpp
     ${PROJECT_SOURCE_DIR}/networkutils_byteoutputter.t.cpp
     ${PROJECT_SOURCE_DIR}/networkstack_stack.t.cpp)

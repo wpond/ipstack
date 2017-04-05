@@ -18,12 +18,24 @@ Stack::Stack(
         throw std::runtime_error("Passed NULL adapter to stack");
     }
     
-    // attach to adapter
+    mAdapter->attach(this);
 }
 
 Stack::~Stack()
 {
-    // detatch observer
+    mAdapter->detatch(this);
+}
+
+void Stack::receive(
+    networkadapter::Adapter* adapter,
+    std::shared_ptr<const networkutils::Packet> packet)
+{
+    if (adapter != mAdapter)
+    {
+        return;
+    }
+
+    
 }
 
 }

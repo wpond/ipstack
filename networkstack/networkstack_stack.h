@@ -5,19 +5,21 @@
 
 #include <string>
 
-#include "networkstack_observer.h"
-
 namespace networkstack
 {
 
-class Stack
+class Stack : public networkadapter::Observer
 {
 public:
     Stack(
         networkadapter::Adapter* adapter,
         const std::string& ipAddress,
         const char* hardwareAddress);
-    ~Stack();
+    virtual ~Stack();
+
+    virtual void receive(
+        networkadapter::Adapter* adapter,
+        std::shared_ptr<const networkutils::Packet> packet);
 private:
     networkadapter::Adapter* mAdapter;
     const std::string mIpAddress;

@@ -14,11 +14,11 @@
 namespace tests
 {
 
-class Adapter : public networkadapter::Adapter
+class TestAdapter : public networkadapter::Adapter
 {
 public:
-    Adapter(const std::string& interface, const char* hardwareAddress);
-    virtual ~Adapter();
+    TestAdapter(const std::string& interface, const char* hardwareAddress);
+    virtual ~TestAdapter();
 
     virtual const std::string& interface() const;
     virtual const char* hardwareAddress() const;
@@ -28,9 +28,11 @@ public:
 
     virtual void send(const std::shared_ptr<networkutils::Packet>& packet);
 
-    // Test receiving a packet
+    // Test interface
     void testReceive(std::shared_ptr<const networkutils::Packet> packet);
     std::shared_ptr<networkutils::Packet> testSent();
+    const std::set<networkadapter::Observer*> testObservers() const;
+    bool testIsObserver(networkadapter::Observer* observer) const;
 
 private:
     std::set<networkadapter::Observer*> mObservers;
@@ -38,34 +40,6 @@ private:
     std::string mInterface;
     const char* mHardwareAddress;
 };
-
-class Observer : public networkadapter::Observer
-{
-public:
-    Observer() {}
-    virtual ~Observer() {}
-    virtual void receive(
-        networkadapter::Adapter* adapter,
-        std::shared_ptr<const networkutils::Packet> packet)
-    {
-        mQueue.push(packet);
-    }
-
-    std::shared_ptr<const networkutils::Packet> received()
-    {
-        std::shared_ptr<const networkutils::Packet> packet;
-        if (!mQueue.empty())
-        {
-            packet = mQueue.front();
-            mQueue.pop();
-        }
-        return packet;
-    }
-
-private:
-    std::queue<std::shared_ptr<const networkutils::Packet> > mQueue;
-};
-
 
 }
 
