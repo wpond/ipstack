@@ -10,14 +10,19 @@ public:
     void SetUp()
     {
         mAdapter = new tests::TestAdapter("192.168.0.1", mAdapterAddress);
+        ASSERT_EQ(0, mAdapter->testObservers().size());
         mStack = new networkstack::Stack(mAdapter, "192.68.0.2", mStackAddress);
+        ASSERT_EQ(1, mAdapter->testObservers().size());
         ASSERT_TRUE(mAdapter->testIsObserver(mStack));
     }
 
     void TearDown()
     {
+        ASSERT_EQ(1, mAdapter->testObservers().size());
+        ASSERT_TRUE(mAdapter->testIsObserver(mStack));
         delete mStack;
         ASSERT_FALSE(mAdapter->testIsObserver(mStack));
+        ASSERT_EQ(0, mAdapter->testObservers().size());
         delete mAdapter;
     }
 protected:
@@ -30,5 +35,5 @@ protected:
 
 TEST_F(Stack, ARPPacket)
 {
-
+    
 }
