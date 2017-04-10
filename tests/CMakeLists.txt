@@ -4,11 +4,13 @@ project (Tests)
 
 add_subdirectory("../networkadapter" "networkadapter")
 add_subdirectory("../networkstack" "networkstack")
+add_subdirectory("../networkpackets" "networkpackets")
 add_subdirectory("../networkutils" "networkutils")
 
 include_directories("${PROJECT_SOURCE_DIR}")
 include_directories("../networkadapter")
 include_directories("../networkstack")
+include_directories("../networkpackets")
 include_directories("../networkutils")
 
 add_executable(Tests
@@ -23,6 +25,7 @@ target_link_libraries(
     gtest
     networkadapter
     networkstack
+    networkpackets
     networkutils)
 
 add_custom_target(

@@ -9,9 +9,9 @@ class Stack : public ::testing::Test
 public:
     void SetUp()
     {
-        mAdapter = new tests::TestAdapter("192.168.0.1", mAdapterAddress);
+        mAdapter = new tests::TestAdapter(mAdapterIp, mAdapterAddress);
         ASSERT_EQ(0, mAdapter->testObservers().size());
-        mStack = new networkstack::Stack(mAdapter, "192.68.0.2", mStackAddress);
+        mStack = new networkstack::Stack(mAdapter, mStackIp, mStackAddress);
         ASSERT_EQ(1, mAdapter->testObservers().size());
         ASSERT_TRUE(mAdapter->testIsObserver(mStack));
     }
@@ -26,9 +26,11 @@ public:
         delete mAdapter;
     }
 protected:
+    const char mAdapterIp[13] = "192.168.0.1";
     const char mAdapterAddress[6] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x01 };
     tests::TestAdapter* mAdapter;
 
+    const char mStackIp[13] = "192.168.0.2";
     const char mStackAddress[6] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x02 };
     networkstack::Stack* mStack;
 };
