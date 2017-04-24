@@ -7,4 +7,5 @@ include_directories("../networkutils")
 
 add_library(
     networkpackets
-    networkpackets_arpfactory.cpp)
+    networkpackets_arpfactory.cpp
+    networkpackets_arpdecoder.cpp)

@@ -1,4 +1,4 @@
-SET(COMPILE_FLAGS "-std=c++11 -pthread -g")
+SET(COMPILE_FLAGS "-Wall -std=c++11 -pthread -g")
 SET(LINK_FLAGS    "-std=c++11 -pthread -g")
 
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${COMPILE_FLAGS}")
