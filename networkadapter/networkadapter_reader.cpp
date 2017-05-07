@@ -71,7 +71,7 @@ void Reader::operator()()
             throw std::runtime_error("Failed to read from network");
         }
 
-        std::shared_ptr<const networkutils::Packet> packet(new networkutils::Packet(buffer, bytes));
+        std::shared_ptr<const networkutils::Packet> packet(new networkutils::Packet((uint8_t*)buffer, (uint32_t)bytes));
         mCallback(packet);
     }
 }

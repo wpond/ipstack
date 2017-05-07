@@ -37,7 +37,7 @@ void Writer::operator()()
         std::shared_ptr<networkutils::Packet> packet = mQueue->front();
 
         const int bytes = write(mFd, packet->data(), packet->size());
-        if (bytes != packet->size())
+        if ((uint32_t)bytes != packet->size())
         {
             std::ostringstream oss;
             oss << "Failed to send entire packet, "

@@ -1,5 +1,7 @@
 #include <gtest/gtest.h>
 
+#include <cstdint>
+
 #include <networkstack_stack.h>
 
 #include "tests_testadapter.h"
@@ -27,11 +29,11 @@ public:
     }
 protected:
     const char mAdapterIp[13] = "192.168.0.1";
-    const char mAdapterAddress[6] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x01 };
+    const uint8_t mAdapterAddress[6] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x01 };
     tests::TestAdapter* mAdapter;
 
     const char mStackIp[13] = "192.168.0.2";
-    const char mStackAddress[6] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x02 };
+    const uint8_t mStackAddress[6] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x02 };
     networkstack::Stack* mStack;
 };
 

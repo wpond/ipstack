@@ -4,6 +4,7 @@
 #include <networkutils_packet.h>
 
 #include <memory>
+#include <cstdint>
 
 namespace networkpackets
 {
@@ -13,18 +14,18 @@ class ArpDecoder
 public:
     ArpDecoder(const std::shared_ptr<networkutils::Packet> packet);
 
-    unsigned short hardwareType() const;
-    unsigned short protocolType() const;
-    unsigned char hardwareSize() const;
-    unsigned char protocolSize() const;
-    unsigned short opCode() const;
+    uint16_t hardwareType() const;
+    uint16_t protocolType() const;
+    uint8_t hardwareSize() const;
+    uint8_t protocolSize() const;
+    uint16_t opCode() const;
     const std::shared_ptr<networkutils::Packet> payload() const;
 private:
-    unsigned short mHardwareType;
-    unsigned short mProtocolType;
-    unsigned char mHardwareSize;
-    unsigned char mProtocolSize;
-    unsigned short mOpCode;
+    uint16_t mHardwareType;
+    uint16_t mProtocolType;
+    uint8_t mHardwareSize;
+    uint8_t mProtocolSize;
+    uint16_t mOpCode;
     const std::shared_ptr<networkutils::Packet> mPacket;
 };
 

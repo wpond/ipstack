@@ -9,6 +9,7 @@
 #include <atomic>
 #include <mutex>
 #include <condition_variable>
+#include <cstdint>
 
 #include <networkutils_packet.h>
 
@@ -27,7 +28,7 @@ public:
     virtual ~KernelAdapter();
 
     virtual const std::string& interface() const;
-    virtual const char* hardwareAddress() const;
+    virtual const uint8_t* hardwareAddress() const;
 
     virtual void attach(Observer* observer);
     virtual void detatch(Observer* observer);
@@ -39,9 +40,9 @@ private:
     KernelAdapter(const KernelAdapter& that);
 
     std::string mInterface;
-    char mHardwareAddress[6];
-    int mFd;
-    int mSocket;
+    uint8_t mHardwareAddress[6];
+    int32_t mFd;
+    int32_t mSocket;
 
     // Notify observers of packet
     void notify(std::shared_ptr<const networkutils::Packet> packet);

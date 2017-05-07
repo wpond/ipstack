@@ -8,7 +8,7 @@ namespace networkstack
 Stack::Stack(
     networkadapter::Adapter* adapter,
     const std::string& ipAddress,
-    const char* hardwareAddress)
+    const uint8_t* hardwareAddress)
     : mAdapter(adapter),
       mIpAddress(ipAddress),
       mHardwareAddress(hardwareAddress)

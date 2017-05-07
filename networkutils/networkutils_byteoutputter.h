@@ -2,6 +2,7 @@
 #define NETWORKUTILS_BYTEOUTPUTTER_H
 
 #include <ostream>
+#include <cstdint>
 
 namespace networkutils
 {
@@ -9,15 +10,15 @@ namespace networkutils
 class ByteOutputter
 {
 public:
-    ByteOutputter(const void* data, unsigned int size, int bytesPerLine = -1);
+    ByteOutputter(const void* data, uint32_t size, int32_t bytesPerLine = -1);
 
     const void* bytes() const;
-    unsigned int size() const;
-    int bytesPerLine() const;
+    uint32_t size() const;
+    int32_t bytesPerLine() const;
 private:
     const void* mBytes;
-    unsigned int mSize;
-    int mBytesPerLine;
+    uint32_t mSize;
+    int32_t mBytesPerLine;
 };
 
 std::ostream& operator<<(std::ostream& stream, const ByteOutputter& printer);
@@ -27,12 +28,12 @@ inline const void* ByteOutputter::bytes() const
     return mBytes;
 }
 
-inline unsigned int ByteOutputter::size() const
+inline uint32_t ByteOutputter::size() const
 {
     return mSize;
 }
 
-inline int ByteOutputter::bytesPerLine() const
+inline int32_t ByteOutputter::bytesPerLine() const
 {
     return mBytesPerLine;
 }

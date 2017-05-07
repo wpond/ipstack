@@ -4,6 +4,7 @@
 #include <networkutils_packet.h>
 
 #include <memory>
+#include <cstdint>
 
 namespace networkpackets
 {
@@ -11,33 +12,33 @@ namespace networkpackets
 class ArpFactory
 {
 public:
-    ArpFactory(unsigned short opcode, const char* payload, int size);
+    ArpFactory(uint16_t opcode, const uint8_t* payload, uint32_t size);
 
-    void setHardwareType(unsigned short hardwareType);
-    void setProtocolType(unsigned short protocolType);
-    void setHardwareSize(unsigned char hardwareSize);
-    void setProtocolSize(unsigned char protocolSize);
+    void setHardwareType(uint16_t hardwareType);
+    void setProtocolType(uint16_t protocolType);
+    void setHardwareSize(uint8_t hardwareSize);
+    void setProtocolSize(uint8_t protocolSize);
 
     std::shared_ptr<networkutils::Packet> getPacket() const;
 
 private:
-    unsigned short mHardwareType;
-    unsigned short mProtocolType;
-    unsigned char mHardwareSize;
-    unsigned char mProtocolSize;
-    unsigned short mOpCode;
-    const char* mPayload;
-    int mSize;
+    uint16_t mHardwareType;
+    uint16_t mProtocolType;
+    uint8_t mHardwareSize;
+    uint8_t mProtocolSize;
+    uint16_t mOpCode;
+    const uint8_t* mPayload;
+    uint32_t mSize;
 
-    int totalSize() const;
-    int writeHardwareType(char* destination) const;
-    int writeProtocolType(char* destination) const;
-    int writeHardwareSize(char* destination) const;
-    int writeProtocolSize(char* destination) const;
-    int writeOpCode(char* destination) const;
-    void writePayload(char* destination) const;
+    uint32_t totalSize() const;
+    uint32_t writeHardwareType(uint8_t* destination) const;
+    uint32_t writeProtocolType(uint8_t* destination) const;
+    uint32_t writeHardwareSize(uint8_t* destination) const;
+    uint32_t writeProtocolSize(uint8_t* destination) const;
+    uint32_t writeOpCode(uint8_t* destination) const;
+    void writePayload(uint8_t* destination) const;
 
-    int writeNetworkShort(char* destination, unsigned short value) const;
+    uint32_t writeNetworkShort(uint8_t* destination, uint16_t value) const;
 };
 
 }

@@ -4,6 +4,7 @@
 #include <networkadapter_adapter.h>
 
 #include <string>
+#include <cstdint>
 
 namespace networkstack
 {
@@ -14,7 +15,7 @@ public:
     Stack(
         networkadapter::Adapter* adapter,
         const std::string& ipAddress,
-        const char* hardwareAddress);
+        const uint8_t* hardwareAddress);
     virtual ~Stack();
 
     virtual void receive(
@@ -23,7 +24,7 @@ public:
 private:
     networkadapter::Adapter* mAdapter;
     const std::string mIpAddress;
-    const char* mHardwareAddress;
+    const uint8_t* mHardwareAddress;
 };
 
 }

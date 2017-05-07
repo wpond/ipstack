@@ -6,14 +6,14 @@
 namespace networkutils
 {
 
-Packet::Packet(const char* data, int size)
+Packet::Packet(const uint8_t* data, uint32_t size)
     : mSize(size)
 {
-    mData = new char[size];
+    mData = new uint8_t[size];
     memcpy(mData, data, size);
 }
 
-Packet::Packet(std::shared_ptr<Packet> packet, int start, int size)
+Packet::Packet(std::shared_ptr<Packet> packet, uint32_t start, uint32_t size)
     : mParent(packet)
 {
     if (!packet)
@@ -38,12 +38,17 @@ Packet::~Packet()
     }
 }
 
-const char* Packet::data() const
+uint8_t* Packet::data()
 {
     return mData;
 }
 
-int Packet::size() const
+const uint8_t* Packet::data() const
+{
+    return mData;
+}
+
+uint32_t Packet::size() const
 {
     return mSize;
 }

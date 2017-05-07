@@ -20,7 +20,8 @@ add_executable(Tests
     ${PROJECT_SOURCE_DIR}/networkutils_byteoutputter.t.cpp
     ${PROJECT_SOURCE_DIR}/networkstack_stack.t.cpp
     ${PROJECT_SOURCE_DIR}/networkpackets_arpfactory.t.cpp
-    ${PROJECT_SOURCE_DIR}/networkpackets_arpdecoder.t.cpp)
+    ${PROJECT_SOURCE_DIR}/networkpackets_arpdecoder.t.cpp
+    ${PROJECT_SOURCE_DIR}/networkpackets_genericdecoder.t.cpp)
 target_link_libraries(
     Tests
     gtest_main

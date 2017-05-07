@@ -6,7 +6,7 @@
 namespace networkutils
 {
 
-ByteOutputter::ByteOutputter(const void* data, unsigned int size, int bytesPerLine)
+ByteOutputter::ByteOutputter(const void* data, uint32_t size, int32_t bytesPerLine)
     : mBytes(data), mSize(size), mBytesPerLine(bytesPerLine)
 {
     if (!mBytes)
@@ -27,16 +27,16 @@ std::ostream& operator<<(std::ostream& stream, const ByteOutputter& outputter)
         stream << "\n    ";
     }
 
-    const char byte = *(const char*)outputter.bytes();
-    stream << "0x" << std::hex << std::setfill('0') << std::setw(2) << ((int)byte & 0x000000FF) << std::dec;
-    for (unsigned int i = 1; i < outputter.size(); ++i)
+    const uint8_t byte = *(const uint8_t*)outputter.bytes();
+    stream << "0x" << std::hex << std::setfill('0') << std::setw(2) << ((int32_t)byte & 0x000000FF) << std::dec;
+    for (uint32_t i = 1; i < outputter.size(); ++i)
     {
         if (outputter.bytesPerLine() > 0 && i % outputter.bytesPerLine() == 0)
         {
             stream << "\n   ";
         }
-        const char byte = *((const char*)(outputter.bytes()) + i);
-        stream << " 0x" << std::hex << std::setfill('0') << std::setw(2) << ((int)byte & 0x000000FF) << std::dec;
+        const uint8_t byte = *((const uint8_t*)(outputter.bytes()) + i);
+        stream << " 0x" << std::hex << std::setfill('0') << std::setw(2) << ((int32_t)byte & 0x000000FF) << std::dec;
     }
 
     return stream;

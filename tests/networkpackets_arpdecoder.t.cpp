@@ -3,10 +3,11 @@
 #include <arpa/inet.h>
 
 #include <stdexcept>
+#include <cstdint>
 
 #include <networkpackets_arpdecoder.h>
 
-void testHeaders(const char* data, const networkpackets::ArpDecoder& decoder)
+void testHeaders(const uint8_t* data, const networkpackets::ArpDecoder& decoder)
 {
     ASSERT_EQ(ntohs(*data), decoder.hardwareType());
     ASSERT_EQ(ntohs(*(data + 2)), decoder.protocolType());
@@ -23,7 +24,7 @@ TEST(ArpDecoder, emptyPacket)
 
 TEST(ArpDecoder, emptyPayload)
 {
-    const char data[8] = {
+    const uint8_t data[8] = {
         0x01, 0x02, 0x03, 0x04,
         0x05, 0x06, 0x07, 0x08
     };
@@ -35,7 +36,7 @@ TEST(ArpDecoder, emptyPayload)
 
 TEST(ArpDecoder, payload)
 {
-    const char data[12] = {
+    const uint8_t data[12] = {
         0x01, 0x02, 0x03, 0x04,
         0x05, 0x06, 0x07, 0x08,
         0x09, 0x10, 0x11, 0x12

@@ -22,27 +22,27 @@ ArpDecoder::ArpDecoder(const std::shared_ptr<networkutils::Packet> packet)
     mOpCode = ntohs(*(mPacket->data() + 6));
 }
 
-unsigned short ArpDecoder::hardwareType() const
+uint16_t ArpDecoder::hardwareType() const
 {
     return mHardwareType;
 }
 
-unsigned short ArpDecoder::protocolType() const
+uint16_t ArpDecoder::protocolType() const
 {
     return mProtocolType;
 }
 
-unsigned char ArpDecoder::hardwareSize() const
+uint8_t ArpDecoder::hardwareSize() const
 {
     return mHardwareSize;
 }
 
-unsigned char ArpDecoder::protocolSize() const
+uint8_t ArpDecoder::protocolSize() const
 {
     return mProtocolSize;
 }
 
-unsigned short ArpDecoder::opCode() const
+uint16_t ArpDecoder::opCode() const
 {
     return mOpCode;
 }

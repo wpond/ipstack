@@ -3,6 +3,8 @@
 
 #include <networkutils_packet.h>
 
+#include <cstdint>
+
 #include "networkadapter_observer.h"
 
 namespace networkadapter
@@ -15,7 +17,7 @@ public:
     virtual ~Adapter() {};
 
     virtual const std::string& interface() const = 0;
-    virtual const char* hardwareAddress() const = 0;
+    virtual const uint8_t* hardwareAddress() const = 0;
 
     virtual void attach(Observer* observer) = 0;
     virtual void detatch(Observer* observer) = 0;

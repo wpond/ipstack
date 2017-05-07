@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 
 #include <stdexcept>
+#include <cstdint>
 
 #include <tests_testadapter.h>
 
@@ -9,7 +10,7 @@
 
 TEST(TestAdapter, Create)
 {
-    const char hardwareAddress[6] = { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06 };
+    const uint8_t hardwareAddress[6] = { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06 };
     tests::TestAdapter adapter("interface", hardwareAddress);
     ASSERT_EQ("interface", adapter.interface());
     ASSERT_EQ(0x01, adapter.hardwareAddress()[0]);
@@ -22,14 +23,14 @@ TEST(TestAdapter, Create)
 
 TEST(TestAdapter, AttachNull)
 {
-    const char hardwareAddress[6] = { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06 };
+    const uint8_t hardwareAddress[6] = { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06 };
     tests::TestAdapter adapter("interface", hardwareAddress);
     ASSERT_THROW(adapter.attach(NULL), std::runtime_error);
 }
 
 TEST(TestAdapter, DetatchNull)
 {
-    const char hardwareAddress[6] = { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06 };
+    const uint8_t hardwareAddress[6] = { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06 };
     tests::TestAdapter adapter("interface", hardwareAddress);
     ASSERT_THROW(adapter.attach(NULL), std::runtime_error);
 }
@@ -64,7 +65,7 @@ private:
 
 TEST(TestAdapter, AttachDetatch)
 {
-    const char hardwareAddress[6] = { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06 };
+    const uint8_t hardwareAddress[6] = { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06 };
     tests::TestAdapter adapter("interface", hardwareAddress);
     Observer observer;
 
@@ -80,17 +81,17 @@ TEST(TestAdapter, AttachDetatch)
 
 TEST(TestAdapter, emptySentQueue)
 {
-    const char hardwareAddress[6] = { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06 };
+    const uint8_t hardwareAddress[6] = { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06 };
     tests::TestAdapter adapter("interface", hardwareAddress);
     ASSERT_FALSE(adapter.testSent());
 }
 
 TEST(TestAdapter, SendToSent)
 {
-    const char hardwareAddress[6] = { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06 };
+    const uint8_t hardwareAddress[6] = { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06 };
     tests::TestAdapter adapter("interface", hardwareAddress);
 
-    const char data[2] = { 0x01, 0x02 };
+    const uint8_t data[2] = { 0x01, 0x02 };
     std::shared_ptr<networkutils::Packet> packet(new networkutils::Packet(data, 2));
     adapter.send(packet);
 
@@ -104,13 +105,13 @@ TEST(TestAdapter, SendToSent)
 
 TEST(TestAdapter, ReceiveOne)
 {
-    const char hardwareAddress[6] = { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06 };
+    const uint8_t hardwareAddress[6] = { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06 };
     tests::TestAdapter adapter("interface", hardwareAddress);
 
     Observer observer;
     adapter.attach(&observer);
     
-    const char data[2] = { 0x01, 0x02 };
+    const uint8_t data[2] = { 0x01, 0x02 };
     std::shared_ptr<const networkutils::Packet> expected(new networkutils::Packet(data, 2));
     adapter.testReceive(expected);
 

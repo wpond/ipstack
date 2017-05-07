@@ -175,7 +175,7 @@ const std::string& KernelAdapter::interface() const
     return mInterface;
 }
 
-const char* KernelAdapter::hardwareAddress() const
+const uint8_t* KernelAdapter::hardwareAddress() const
 {
     return mHardwareAddress;
 }
@@ -218,7 +218,7 @@ void KernelAdapter::notify(std::shared_ptr<const networkutils::Packet> packet)
 void KernelAdapter::send(const std::shared_ptr<networkutils::Packet>& packet)
 {
     const int bytes = write(mFd, packet->data(), packet->size());
-    if (bytes != packet->size())
+    if ((uint32_t)bytes != packet->size())
     {
         std::ostringstream oss;
         oss << "Packet write resulted in unexpected number of bytes, "
