@@ -1,4 +1,4 @@
-#include <networkpackets_genericdecoder.h>
+#include <networkpackets_genericinterface.h>
 
 #include <sstream>
 #include <cstring>
@@ -8,7 +8,7 @@
 namespace networkpackets
 {
 
-void GenericDecoder::getUint8(const std::string& name, uint8_t* value) const
+void GenericInterface::getUint8(const std::string& name, uint8_t* value) const
 {
     if (!value)
     {
@@ -16,11 +16,11 @@ void GenericDecoder::getUint8(const std::string& name, uint8_t* value) const
     }
 
     FieldPair field = findPair(name);
-    checkType(field, GenericDecoder::UINT8);
+    checkType(field, GenericInterface::UINT8);
     *value = mPacket->data()[field.second];
 }
 
-void GenericDecoder::getInt8(const std::string& name, int8_t* value) const
+void GenericInterface::getInt8(const std::string& name, int8_t* value) const
 {
     if (!value)
     {
@@ -28,11 +28,11 @@ void GenericDecoder::getInt8(const std::string& name, int8_t* value) const
     }
 
     FieldPair field = findPair(name);
-    checkType(field, GenericDecoder::INT8);
+    checkType(field, GenericInterface::INT8);
     *value = mPacket->data()[field.second];
 }
 
-void GenericDecoder::getUint16(const std::string& name, uint16_t* value) const
+void GenericInterface::getUint16(const std::string& name, uint16_t* value) const
 {
     if (!value)
     {
@@ -40,14 +40,14 @@ void GenericDecoder::getUint16(const std::string& name, uint16_t* value) const
     }
 
     FieldPair field = findPair(name);
-    checkType(field, GenericDecoder::UINT16);
+    checkType(field, GenericInterface::UINT16);
     
     uint16_t networkValue = 0;
     memcpy(&networkValue, &mPacket->data()[field.second], sizeof(networkValue));
     *value = ntohs(networkValue);
 }
 
-void GenericDecoder::getInt16(const std::string& name, int16_t* value) const
+void GenericInterface::getInt16(const std::string& name, int16_t* value) const
 {
     if (!value)
     {
@@ -55,14 +55,14 @@ void GenericDecoder::getInt16(const std::string& name, int16_t* value) const
     }
 
     FieldPair field = findPair(name);
-    checkType(field, GenericDecoder::INT16);
+    checkType(field, GenericInterface::INT16);
     
     int16_t networkValue = 0;
     memcpy(&networkValue, &mPacket->data()[field.second], sizeof(networkValue));
     *value = ntohs(networkValue);
 }
 
-void GenericDecoder::getUint32(const std::string& name, uint32_t* value) const
+void GenericInterface::getUint32(const std::string& name, uint32_t* value) const
 {
     if (!value)
     {
@@ -70,14 +70,14 @@ void GenericDecoder::getUint32(const std::string& name, uint32_t* value) const
     }
 
     FieldPair field = findPair(name);
-    checkType(field, GenericDecoder::UINT32);
+    checkType(field, GenericInterface::UINT32);
     
     uint32_t networkValue = 0;
     memcpy(&networkValue, &mPacket->data()[field.second], sizeof(networkValue));
     *value = ntohl(networkValue);
 }
 
-void GenericDecoder::getInt32(const std::string& name, int32_t* value) const
+void GenericInterface::getInt32(const std::string& name, int32_t* value) const
 {
     if (!value)
     {
@@ -85,93 +85,93 @@ void GenericDecoder::getInt32(const std::string& name, int32_t* value) const
     }
 
     FieldPair field = findPair(name);
-    checkType(field, GenericDecoder::INT32);
+    checkType(field, GenericInterface::INT32);
     
     int32_t networkValue = 0;
     memcpy(&networkValue, &mPacket->data()[field.second], sizeof(networkValue));
     *value = ntohl(networkValue);
 }
 
-void GenericDecoder::setUint8(const std::string& name, uint8_t value) const
+void GenericInterface::setUint8(const std::string& name, uint8_t value) const
 {
     FieldPair field = findPair(name);
-    checkType(field, GenericDecoder::UINT8);
+    checkType(field, GenericInterface::UINT8);
     mPacket->data()[field.second] = value;
 }
 
-void GenericDecoder::setInt8(const std::string& name, int8_t value) const
+void GenericInterface::setInt8(const std::string& name, int8_t value) const
 {
     FieldPair field = findPair(name);
-    checkType(field, GenericDecoder::INT8);
+    checkType(field, GenericInterface::INT8);
     mPacket->data()[field.second] = value;
 }
 
-void GenericDecoder::setUint16(const std::string& name, uint16_t value) const
+void GenericInterface::setUint16(const std::string& name, uint16_t value) const
 {
     FieldPair field = findPair(name);
-    checkType(field, GenericDecoder::UINT16);
+    checkType(field, GenericInterface::UINT16);
     
     uint16_t networkValue = htons(value);
     memcpy(&mPacket->data()[field.second], &networkValue, sizeof(networkValue));
 }
 
-void GenericDecoder::setInt16(const std::string& name, int16_t value) const
+void GenericInterface::setInt16(const std::string& name, int16_t value) const
 {
     FieldPair field = findPair(name);
-    checkType(field, GenericDecoder::INT16);
+    checkType(field, GenericInterface::INT16);
     
     int16_t networkValue = htons(value);
     memcpy(&mPacket->data()[field.second], &networkValue, sizeof(networkValue));
 }
 
-void GenericDecoder::setUint32(const std::string& name, uint32_t value) const
+void GenericInterface::setUint32(const std::string& name, uint32_t value) const
 {
     FieldPair field = findPair(name);
-    checkType(field, GenericDecoder::UINT32);
+    checkType(field, GenericInterface::UINT32);
     
     uint32_t networkValue = htonl(value);
     memcpy(&mPacket->data()[field.second], &networkValue, sizeof(networkValue));
 }
 
-void GenericDecoder::setInt32(const std::string& name, int32_t value) const
+void GenericInterface::setInt32(const std::string& name, int32_t value) const
 {
     FieldPair field = findPair(name);
-    checkType(field, GenericDecoder::INT32);
+    checkType(field, GenericInterface::INT32);
     
     int32_t networkValue = htonl(value);
     memcpy(&mPacket->data()[field.second], &networkValue, sizeof(networkValue));
 }
 
-std::shared_ptr<networkutils::Packet> GenericDecoder::getPayload(const std::string& name)
+std::shared_ptr<networkutils::Packet> GenericInterface::getPayload(const std::string& name)
 {
     FieldPair field = findPair(name);
-    checkType(field, GenericDecoder::PAYLOAD);
+    checkType(field, GenericInterface::PAYLOAD);
 
     return std::shared_ptr<networkutils::Packet>(new networkutils::Packet(mPacket, field.second));
 }
 
-std::shared_ptr<networkutils::Packet> GenericDecoder::getPacket()
+std::shared_ptr<networkutils::Packet> GenericInterface::getPacket()
 {
     return mPacket;
 }
 
-GenericDecoder::GenericDecoder(uint32_t size)
+GenericInterface::GenericInterface(uint32_t size)
 {
     uint8_t data[size];
     memset(data, 0, sizeof(data));
     mPacket = std::shared_ptr<networkutils::Packet>(new networkutils::Packet(data, size));
 }
 
-GenericDecoder::GenericDecoder(std::shared_ptr<networkutils::Packet> packet)
+GenericInterface::GenericInterface(std::shared_ptr<networkutils::Packet> packet)
     : mPacket(packet)
 {
     if (!packet)
     {
-        throw std::runtime_error("NULL packetd passed to GenericDecoder");
+        throw std::runtime_error("NULL packetd passed to GenericInterface");
     }
 }
 
-void GenericDecoder::addField(const std::string& name, GenericDecoder::Type type, uint32_t offset)
+void GenericInterface::addField(const std::string& name, GenericInterface::Type type, uint32_t offset)
 {
     if (offset > mPacket->size())
     {
@@ -185,7 +185,7 @@ void GenericDecoder::addField(const std::string& name, GenericDecoder::Type type
     mFields[name] = std::make_pair(type, offset);
 }
 
-GenericDecoder::FieldPair GenericDecoder::findPair(const std::string& name) const
+GenericInterface::FieldPair GenericInterface::findPair(const std::string& name) const
 {
     FieldMap::const_iterator it = mFields.find(name);
 
@@ -200,7 +200,7 @@ GenericDecoder::FieldPair GenericDecoder::findPair(const std::string& name) cons
     return it->second;
 }
 
-void GenericDecoder::checkType(const FieldPair& field, GenericDecoder::Type type) const
+void GenericInterface::checkType(const FieldPair& field, GenericInterface::Type type) const
 {
     if (field.first != type)
     {

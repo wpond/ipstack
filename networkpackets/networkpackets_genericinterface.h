@@ -1,5 +1,5 @@
-#ifndef NETWORKPACKETS_GENERICDECODER_H
-#define NETWORKPACKETS_GENERICDECODER_H
+#ifndef NETWORKPACKETS_GENERICINTERFACE_H
+#define NETWORKPACKETS_GENERICINTERFACE_H
 
 #include <networkutils_packet.h>
 
@@ -13,7 +13,7 @@
 namespace networkpackets
 {
 
-class GenericDecoder
+class GenericInterface
 {
 public:
     void getUint8(const std::string& name, uint8_t* value) const;
@@ -34,9 +34,9 @@ public:
     std::shared_ptr<networkutils::Packet> getPacket();
 
 protected:
-    GenericDecoder(uint32_t size);
-    GenericDecoder(std::shared_ptr<networkutils::Packet> packet);
-    virtual ~GenericDecoder() {}
+    GenericInterface(uint32_t size);
+    GenericInterface(std::shared_ptr<networkutils::Packet> packet);
+    virtual ~GenericInterface() {}
 
     enum Type
     {
@@ -49,7 +49,7 @@ protected:
         PAYLOAD
     };
 
-    friend std::ostream& operator<<(std::ostream& stream, GenericDecoder::Type type);
+    friend std::ostream& operator<<(std::ostream& stream, GenericInterface::Type type);
 
     void addField(const std::string& name, Type type, uint32_t offset);
 
@@ -64,23 +64,23 @@ private:
     FieldMap mFields;
 };
 
-inline std::ostream& operator<<(std::ostream& stream, GenericDecoder::Type type)
+inline std::ostream& operator<<(std::ostream& stream, GenericInterface::Type type)
 {
     switch (type)
     {
-        case GenericDecoder::INT8:
+        case GenericInterface::INT8:
             return stream << "INT8";
-        case GenericDecoder::UINT8:
+        case GenericInterface::UINT8:
             return stream << "UINT8";
-        case GenericDecoder::INT16:
+        case GenericInterface::INT16:
             return stream << "INT16";
-        case GenericDecoder::UINT16:
+        case GenericInterface::UINT16:
             return stream << "UINT16";
-        case GenericDecoder::INT32:
+        case GenericInterface::INT32:
             return stream << "INT32";
-        case GenericDecoder::UINT32:
+        case GenericInterface::UINT32:
             return stream << "UINT32";
-        case GenericDecoder::PAYLOAD:
+        case GenericInterface::PAYLOAD:
             return stream << "PAYLOAD";
         default:
             return stream << "UNKNOWN";

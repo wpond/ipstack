@@ -1,15 +1,15 @@
 #include <gtest/gtest.h>
 
-#include <networkpackets_genericdecoder.h>
+#include <networkpackets_genericinterface.h>
 
 namespace
 {
 
-class TestDecoder : public networkpackets::GenericDecoder
+class TestDecoder : public networkpackets::GenericInterface
 {
 public:
     TestDecoder()
-        : networkpackets::GenericDecoder(20)
+        : networkpackets::GenericInterface(20)
     {
         addField("unsignedByte", UINT8, 0);
         addField("signedByte", INT8, 1);
@@ -25,19 +25,19 @@ public:
 
 } // anonymous namespace
 
-TEST(GenericDecoder, badFieldName)
+TEST(GenericInterface, badFieldName)
 {
     TestDecoder decoder;
     ASSERT_THROW(decoder.setUint8("missing", 0xFF), std::runtime_error);
 }
 
-TEST(GenericDecoder, badFieldType)
+TEST(GenericInterface, badFieldType)
 {
     TestDecoder decoder;
     ASSERT_THROW(decoder.setInt8("unsignedByte", 0xFF), std::runtime_error);
 }
 
-TEST(GenericDecoder, unsignedByte)
+TEST(GenericInterface, unsignedByte)
 {
     TestDecoder decoder;
     decoder.setUint8("unsignedByte", 0xF2);
@@ -49,7 +49,7 @@ TEST(GenericDecoder, unsignedByte)
     ASSERT_EQ(0xF2, decoder.getPacket()->data()[0]);
 }
 
-TEST(GenericDecoder, signedByte)
+TEST(GenericInterface, signedByte)
 {
     TestDecoder decoder;
     decoder.setInt8("signedByte", 0xF2);
@@ -61,7 +61,7 @@ TEST(GenericDecoder, signedByte)
     ASSERT_EQ(0xF2, decoder.getPacket()->data()[1]);
 }
 
-TEST(GenericDecoder, unsignedShort)
+TEST(GenericInterface, unsignedShort)
 {
     TestDecoder decoder;
     decoder.setUint16("unsignedShort", 0xF234);
@@ -74,7 +74,7 @@ TEST(GenericDecoder, unsignedShort)
     ASSERT_EQ(0x34, decoder.getPacket()->data()[3]);
 }
 
-TEST(GenericDecoder, signedShort)
+TEST(GenericInterface, signedShort)
 {
     TestDecoder decoder;
     decoder.setInt16("signedShort", 0xF234);
@@ -87,7 +87,7 @@ TEST(GenericDecoder, signedShort)
     ASSERT_EQ(0x34, decoder.getPacket()->data()[5]);
 }
 
-TEST(GenericDecoder, unsignedInt)
+TEST(GenericInterface, unsignedInt)
 {
     TestDecoder decoder;
     decoder.setUint32("unsignedInt", 0xF2345678);
@@ -102,7 +102,7 @@ TEST(GenericDecoder, unsignedInt)
     ASSERT_EQ(0x78, decoder.getPacket()->data()[9]);
 }
 
-TEST(GenericDecoder, signedInt)
+TEST(GenericInterface, signedInt)
 {
     TestDecoder decoder;
     decoder.setInt32("signedInt", 0xF2345678);
@@ -117,7 +117,7 @@ TEST(GenericDecoder, signedInt)
     ASSERT_EQ(0x78, decoder.getPacket()->data()[13]);
 }
 
-TEST(GenericDecoder, payload)
+TEST(GenericInterface, payload)
 {
     TestDecoder decoder;
 
