@@ -45,7 +45,7 @@ private:
     int32_t mSocket;
 
     // Notify observers of packet
-    void notify(std::shared_ptr<const networkutils::Packet> packet);
+    void notify(std::shared_ptr<networkutils::Packet> packet);
 
     std::set<Observer*> mObservers;
 

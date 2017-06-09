@@ -20,7 +20,7 @@ public:
 
     virtual void receive(
         networkadapter::Adapter* adapter,
-        std::shared_ptr<const networkutils::Packet> packet);
+        std::shared_ptr<networkutils::Packet> packet);
 private:
     networkadapter::Adapter* mAdapter;
     const std::string mIpAddress;

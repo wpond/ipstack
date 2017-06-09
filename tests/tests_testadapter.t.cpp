@@ -42,14 +42,14 @@ public:
     virtual ~Observer() {}
     virtual void receive(
         networkadapter::Adapter* adapter,
-        std::shared_ptr<const networkutils::Packet> packet)
+        std::shared_ptr<networkutils::Packet> packet)
     {
         mQueue.push(packet);
     }
 
-    std::shared_ptr<const networkutils::Packet> received()
+    std::shared_ptr<networkutils::Packet> received()
     {
-        std::shared_ptr<const networkutils::Packet> packet;
+        std::shared_ptr<networkutils::Packet> packet;
         if (!mQueue.empty())
         {
             packet = mQueue.front();
@@ -59,7 +59,7 @@ public:
     }
 
 private:
-    std::queue<std::shared_ptr<const networkutils::Packet> > mQueue;
+    std::queue<std::shared_ptr<networkutils::Packet> > mQueue;
 };
 
 
@@ -112,10 +112,10 @@ TEST(TestAdapter, ReceiveOne)
     adapter.attach(&observer);
     
     const uint8_t data[2] = { 0x01, 0x02 };
-    std::shared_ptr<const networkutils::Packet> expected(new networkutils::Packet(data, 2));
+    std::shared_ptr<networkutils::Packet> expected(new networkutils::Packet(data, 2));
     adapter.testReceive(expected);
 
-    std::shared_ptr<const networkutils::Packet> actual = observer.received();
+    std::shared_ptr<networkutils::Packet> actual = observer.received();
     ASSERT_EQ(2, actual->size());
     ASSERT_EQ(1, actual->data()[0]);
     ASSERT_EQ(2, actual->data()[1]);

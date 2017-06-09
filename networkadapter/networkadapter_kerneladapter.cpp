@@ -150,7 +150,7 @@ KernelAdapter::KernelAdapter()
     }
 
     // Setup threads
-    std::function<void(std::shared_ptr<const networkutils::Packet>)> callback =
+    std::function<void(std::shared_ptr<networkutils::Packet>)> callback =
         std::bind(&KernelAdapter::notify, this, std::placeholders::_1);
     mReadThread = new std::thread(Reader(mFd, callback, mStopFlag));
     //mWriteThread = new std::thread(NetworkWriter(mFd, &mWriteQueue, &mStopFlag));
@@ -200,7 +200,7 @@ void KernelAdapter::detatch(Observer* observer)
     mObservers.erase(observer);
 }
 
-void KernelAdapter::notify(std::shared_ptr<const networkutils::Packet> packet)
+void KernelAdapter::notify(std::shared_ptr<networkutils::Packet> packet)
 {
     // TODO: could this be more efficient? do we have to join on the threads
     std::vector<std::thread> threads;

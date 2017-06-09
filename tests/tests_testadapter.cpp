@@ -49,7 +49,7 @@ void TestAdapter::send(const std::shared_ptr<networkutils::Packet>& packet)
     mSentQueue.push(packet);
 }
 
-void TestAdapter::testReceive(std::shared_ptr<const networkutils::Packet> packet)
+void TestAdapter::testReceive(std::shared_ptr<networkutils::Packet> packet)
 {
     for (networkadapter::Observer* observer : mObservers)
     {

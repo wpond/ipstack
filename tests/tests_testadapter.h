@@ -30,7 +30,7 @@ public:
     virtual void send(const std::shared_ptr<networkutils::Packet>& packet);
 
     // Test interface
-    void testReceive(std::shared_ptr<const networkutils::Packet> packet);
+    void testReceive(std::shared_ptr<networkutils::Packet> packet);
     std::shared_ptr<networkutils::Packet> testSent();
     const std::set<networkadapter::Observer*> testObservers() const;
     bool testIsObserver(networkadapter::Observer* observer) const;
