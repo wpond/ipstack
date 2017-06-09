@@ -9,4 +9,5 @@ add_library(
     networkpackets
     networkpackets_arpfactory.cpp
     networkpackets_arpdecoder.cpp
-    networkpackets_genericinterface.cpp)
+    networkpackets_genericinterface.cpp
+    networkpackets_ethernet.cpp)

@@ -142,7 +142,7 @@ void GenericInterface::setInt32(const std::string& name, int32_t value) const
     memcpy(&mPacket->data()[field.second], &networkValue, sizeof(networkValue));
 }
 
-std::shared_ptr<networkutils::Packet> GenericInterface::getPayload(const std::string& name)
+std::shared_ptr<networkutils::Packet> GenericInterface::getPayload(const std::string& name) const
 {
     FieldPair field = findPair(name);
     checkType(field, GenericInterface::PAYLOAD);
@@ -150,7 +150,7 @@ std::shared_ptr<networkutils::Packet> GenericInterface::getPayload(const std::st
     return std::shared_ptr<networkutils::Packet>(new networkutils::Packet(mPacket, field.second));
 }
 
-std::shared_ptr<networkutils::Packet> GenericInterface::getPacket()
+std::shared_ptr<networkutils::Packet> GenericInterface::getPacket() const
 {
     return mPacket;
 }
@@ -183,6 +183,16 @@ void GenericInterface::addField(const std::string& name, GenericInterface::Type 
     }
 
     mFields[name] = std::make_pair(type, offset);
+}
+
+uint8_t* GenericInterface::data()
+{
+    return mPacket->data();
+}
+
+const uint8_t* GenericInterface::data() const
+{
+    return mPacket->data();
 }
 
 GenericInterface::FieldPair GenericInterface::findPair(const std::string& name) const

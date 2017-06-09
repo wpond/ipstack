@@ -30,8 +30,8 @@ public:
     void setUint32(const std::string& name, uint32_t value) const;
     void setInt32(const std::string& name, int32_t value) const;
 
-    std::shared_ptr<networkutils::Packet> getPayload(const std::string& name);
-    std::shared_ptr<networkutils::Packet> getPacket();
+    std::shared_ptr<networkutils::Packet> getPayload(const std::string& name) const;
+    std::shared_ptr<networkutils::Packet> getPacket() const;
 
 protected:
     GenericInterface(uint32_t size);
@@ -52,6 +52,10 @@ protected:
     friend std::ostream& operator<<(std::ostream& stream, GenericInterface::Type type);
 
     void addField(const std::string& name, Type type, uint32_t offset);
+
+    uint8_t* data();
+
+    const uint8_t* data() const;
 
 private:
     typedef std::pair<Type, uint32_t> FieldPair;
