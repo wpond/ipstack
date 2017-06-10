@@ -92,6 +92,19 @@ void GenericInterface::getInt32(const std::string& name, int32_t* value) const
     *value = ntohl(networkValue);
 }
 
+void GenericInterface::getMacAddress(const std::string& name, networkutils::MacAddress* value) const
+{
+    if (!value)
+    {
+        throw std::runtime_error("NULL value passed to get [MacAddress]");
+    }
+
+    FieldPair field = findPair(name);
+    checkType(field, GenericInterface::MACADDRESS);
+    
+    *value = networkutils::MacAddress(&mPacket->data()[field.second]);
+}
+
 uint8_t GenericInterface::getUint8(const std::string& name) const
 {
     uint8_t value = 0;
@@ -131,6 +144,13 @@ int32_t GenericInterface::getInt32(const std::string& name) const
 {
     int32_t value = 0;
     getInt32(name, &value);
+    return value;
+}
+
+networkutils::MacAddress GenericInterface::getMacAddress(const std::string& name) const
+{
+    networkutils::MacAddress value;
+    getMacAddress(name, &value);
     return value;
 }
 
@@ -182,6 +202,14 @@ void GenericInterface::setInt32(const std::string& name, int32_t value) const
     
     int32_t networkValue = htonl(value);
     memcpy(&mPacket->data()[field.second], &networkValue, sizeof(networkValue));
+}
+
+void GenericInterface::setMacAddress(const std::string& name, const networkutils::MacAddress& value) const
+{
+    FieldPair field = findPair(name);
+    checkType(field, GenericInterface::MACADDRESS);
+    
+    memcpy(&mPacket->data()[field.second], value.value(), value.size());
 }
 
 std::shared_ptr<networkutils::Packet> GenericInterface::getPayload(const std::string& name) const

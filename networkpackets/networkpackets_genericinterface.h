@@ -3,6 +3,7 @@
 
 #include <networkutils_packet.h>
 #include <networkutils_byteoutputter.h>
+#include <networkutils_macaddress.h>
 
 #include <cstdint>
 #include <memory>
@@ -23,6 +24,7 @@ public:
     int16_t getInt16(const std::string& name) const;
     uint32_t getUint32(const std::string& name) const;
     int32_t getInt32(const std::string& name) const;
+    networkutils::MacAddress getMacAddress(const std::string& name) const;
 
     void setUint8(const std::string& name, uint8_t value) const;
     void setInt8(const std::string& name, int8_t value) const;
@@ -30,6 +32,7 @@ public:
     void setInt16(const std::string& name, int16_t value) const;
     void setUint32(const std::string& name, uint32_t value) const;
     void setInt32(const std::string& name, int32_t value) const;
+    void setMacAddress(const std::string& name, const networkutils::MacAddress& value) const;
 
     std::shared_ptr<networkutils::Packet> getPayload(const std::string& name) const;
     std::shared_ptr<networkutils::Packet> getPacket() const;
@@ -47,6 +50,7 @@ protected:
         UINT16,
         INT32,
         UINT32,
+        MACADDRESS,
         PAYLOAD
     };
 
@@ -70,6 +74,7 @@ private:
     void getInt16(const std::string& name, int16_t* value) const;
     void getUint32(const std::string& name, uint32_t* value) const;
     void getInt32(const std::string& name, int32_t* value) const;
+    void getMacAddress(const std::string& name, networkutils::MacAddress* value) const;
 
     FieldPair findPair(const std::string& name) const;
     void checkType(const FieldPair& field, Type type) const;
@@ -94,6 +99,8 @@ inline std::ostream& operator<<(std::ostream& stream, GenericInterface::Type typ
             return stream << "INT32";
         case GenericInterface::UINT32:
             return stream << "UINT32";
+        case GenericInterface::MACADDRESS:
+            return stream << "MACADDRESS";
         case GenericInterface::PAYLOAD:
             return stream << "PAYLOAD";
         default:
@@ -134,6 +141,9 @@ inline std::ostream& operator<<(std::ostream& stream, const GenericInterface& in
         case GenericInterface::UINT32:
             stream << "[ " << networkutils::ByteOutputter(interface.mPacket->data() + it->second.second, 4) << " "
                    << "(" << interface.getUint32(it->first) << ") ]";
+            break;
+        case GenericInterface::MACADDRESS:
+            stream << "[ " << interface.getMacAddress(it->first) << " ]";
             break;
         case GenericInterface::PAYLOAD:
             {

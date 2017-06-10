@@ -52,7 +52,12 @@ const uint8_t* MacAddress::value() const
     return mAddress;
 }
 
-bool MacAddress::operator==(const MacAddress& rhs)
+uint8_t MacAddress::size() const
+{
+    return 6;
+}
+
+bool MacAddress::operator==(const MacAddress& rhs) const
 {
     return memcmp(mAddress, rhs.mAddress, sizeof(mAddress)) == 0;
 }

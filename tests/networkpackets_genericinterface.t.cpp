@@ -9,7 +9,7 @@ class TestDecoder : public networkpackets::GenericInterface
 {
 public:
     TestDecoder()
-        : networkpackets::GenericInterface(20)
+        : networkpackets::GenericInterface(26)
     {
         addField("unsignedByte", UINT8, 0);
         addField("signedByte", INT8, 1);
@@ -17,7 +17,8 @@ public:
         addField("signedShort", INT16, 4);
         addField("unsignedInt", UINT32, 6);
         addField("signedInt", INT32, 10);
-        addField("payload", PAYLOAD, 14);
+        addField("MacAddress", MACADDRESS, 14);
+        addField("payload", PAYLOAD, 20);
     }
 
     ~TestDecoder() {}
@@ -97,6 +98,24 @@ TEST(GenericInterface, signedInt)
     ASSERT_EQ(0x34, decoder.getPacket()->data()[11]);
     ASSERT_EQ(0x56, decoder.getPacket()->data()[12]);
     ASSERT_EQ(0x78, decoder.getPacket()->data()[13]);
+}
+
+TEST(GenericInterface, macAddress)
+{
+    TestDecoder decoder;
+    decoder.setMacAddress("MacAddress", { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06 });
+
+    networkutils::MacAddress address = {
+        0x01, 0x02, 0x03, 0x04, 0x05, 0x06
+    };
+
+    ASSERT_EQ(address, decoder.getMacAddress("MacAddress"));
+    ASSERT_EQ(0x01, decoder.getPacket()->data()[14]);
+    ASSERT_EQ(0x02, decoder.getPacket()->data()[15]);
+    ASSERT_EQ(0x03, decoder.getPacket()->data()[16]);
+    ASSERT_EQ(0x04, decoder.getPacket()->data()[17]);
+    ASSERT_EQ(0x05, decoder.getPacket()->data()[18]);
+    ASSERT_EQ(0x06, decoder.getPacket()->data()[19]);
 }
 
 TEST(GenericInterface, payload)

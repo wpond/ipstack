@@ -28,7 +28,9 @@ public:
     uint8_t* value();
     const uint8_t* value() const;
 
-    bool operator==(const MacAddress& rhs);
+    uint8_t size() const;
+
+    bool operator==(const MacAddress& rhs) const;
 private:
     uint8_t mAddress[6];
 };
