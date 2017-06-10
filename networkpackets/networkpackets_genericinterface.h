@@ -2,6 +2,7 @@
 #define NETWORKPACKETS_GENERICINTERFACE_H
 
 #include <networkutils_packet.h>
+#include <networkutils_byteoutputter.h>
 
 #include <cstdint>
 #include <memory>
@@ -16,12 +17,12 @@ namespace networkpackets
 class GenericInterface
 {
 public:
-    void getUint8(const std::string& name, uint8_t* value) const;
-    void getInt8(const std::string& name, int8_t* value) const;
-    void getUint16(const std::string& name, uint16_t* value) const;
-    void getInt16(const std::string& name, int16_t* value) const;
-    void getUint32(const std::string& name, uint32_t* value) const;
-    void getInt32(const std::string& name, int32_t* value) const;
+    uint8_t getUint8(const std::string& name) const;
+    int8_t getInt8(const std::string& name) const;
+    uint16_t getUint16(const std::string& name) const;
+    int16_t getInt16(const std::string& name) const;
+    uint32_t getUint32(const std::string& name) const;
+    int32_t getInt32(const std::string& name) const;
 
     void setUint8(const std::string& name, uint8_t value) const;
     void setInt8(const std::string& name, int8_t value) const;
@@ -61,6 +62,15 @@ private:
     typedef std::pair<Type, uint32_t> FieldPair;
     typedef std::map<std::string, FieldPair> FieldMap;
 
+    friend std::ostream& operator<<(std::ostream& stream, const GenericInterface& interface);
+
+    void getUint8(const std::string& name, uint8_t* value) const;
+    void getInt8(const std::string& name, int8_t* value) const;
+    void getUint16(const std::string& name, uint16_t* value) const;
+    void getInt16(const std::string& name, int16_t* value) const;
+    void getUint32(const std::string& name, uint32_t* value) const;
+    void getInt32(const std::string& name, int32_t* value) const;
+
     FieldPair findPair(const std::string& name) const;
     void checkType(const FieldPair& field, Type type) const;
 
@@ -89,6 +99,53 @@ inline std::ostream& operator<<(std::ostream& stream, GenericInterface::Type typ
         default:
             return stream << "UNKNOWN";
     }
+}
+
+inline std::ostream& operator<<(std::ostream& stream, const GenericInterface& interface)
+{
+    stream << "[";
+    for (GenericInterface::FieldMap::const_iterator it = interface.mFields.begin();
+        it != interface.mFields.end();
+        ++it)
+    {
+        stream << " " << it->second.first << " " << it->first << " = ";
+        switch (it->second.first)
+        {
+        case GenericInterface::INT8:
+            stream << "[ " << networkutils::ByteOutputter(interface.mPacket->data() + it->second.second, 1) << " "
+                   << "(" << (uint32_t)interface.getInt8(it->first) << ") ]";
+            break;
+        case GenericInterface::UINT8:
+            stream << "[ " << networkutils::ByteOutputter(interface.mPacket->data() + it->second.second, 1) << " "
+                   << "(" << (uint32_t)interface.getUint8(it->first) << ") ]";
+            break;
+        case GenericInterface::INT16:
+            stream << "[ " << networkutils::ByteOutputter(interface.mPacket->data() + it->second.second, 2) << " "
+                   << "(" << interface.getInt16(it->first) << ") ]";
+            break;
+        case GenericInterface::UINT16:
+            stream << "[ " << networkutils::ByteOutputter(interface.mPacket->data() + it->second.second, 2) << " "
+                   << "(" << interface.getUint16(it->first) << ") ]";
+            break;
+        case GenericInterface::INT32:
+            stream << "[ " << networkutils::ByteOutputter(interface.mPacket->data() + it->second.second, 4) << " "
+                   << "(" << interface.getInt32(it->first) << ") ]";
+            break;
+        case GenericInterface::UINT32:
+            stream << "[ " << networkutils::ByteOutputter(interface.mPacket->data() + it->second.second, 4) << " "
+                   << "(" << interface.getUint32(it->first) << ") ]";
+            break;
+        case GenericInterface::PAYLOAD:
+            {
+                uint32_t size = interface.mPacket->size() - it->second.second;
+                stream << "[ " << networkutils::ByteOutputter(interface.mPacket->data() + it->second.second, size, 4) << " ]";
+            }
+            break;
+        default:
+            stream << "UNKNOWN";
+        }
+    }
+    return stream << " ]";
 }
 
 }

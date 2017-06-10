@@ -92,6 +92,48 @@ void GenericInterface::getInt32(const std::string& name, int32_t* value) const
     *value = ntohl(networkValue);
 }
 
+uint8_t GenericInterface::getUint8(const std::string& name) const
+{
+    uint8_t value = 0;
+    getUint8(name, &value);
+    return value;
+}
+
+int8_t GenericInterface::getInt8(const std::string& name) const
+{
+    int8_t value = 0;
+    getInt8(name, &value);
+    return value;
+}
+
+uint16_t GenericInterface::getUint16(const std::string& name) const
+{
+    uint16_t value = 0;
+    getUint16(name, &value);
+    return value;
+}
+
+int16_t GenericInterface::getInt16(const std::string& name) const
+{
+    int16_t value = 0;
+    getInt16(name, &value);
+    return value;
+}
+
+uint32_t GenericInterface::getUint32(const std::string& name) const
+{
+    uint32_t value = 0;
+    getUint32(name, &value);
+    return value;
+}
+
+int32_t GenericInterface::getInt32(const std::string& name) const
+{
+    int32_t value = 0;
+    getInt32(name, &value);
+    return value;
+}
+
 void GenericInterface::setUint8(const std::string& name, uint8_t value) const
 {
     FieldPair field = findPair(name);

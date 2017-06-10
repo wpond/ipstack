@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include <stdint.h>
+#include <cstdint>
 
 #include <networkutils_packet.h>
 #include <networkpackets_ethernet.h>
@@ -24,9 +24,7 @@ void testPacket(const networkpackets::Ethernet& ethernet)
     ASSERT_EQ(10, ethernet.sourceMac()[4]);
     ASSERT_EQ(11, ethernet.sourceMac()[5]);
 
-    uint16_t etherType = 65535;
-    ethernet.getUint16("EtherType", &etherType);
-    ASSERT_EQ(0x0C0D, etherType);
+    ASSERT_EQ(0x0C0D, ethernet.getUint16("EtherType"));
 
     std::shared_ptr<networkutils::Packet> payload = ethernet.getPayload("Payload");
     ASSERT_EQ(6, payload->size());

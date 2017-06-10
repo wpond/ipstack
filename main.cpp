@@ -1,6 +1,8 @@
 
 #include <networkadapter_kerneladapter.h>
 
+#include <networkstack_stack.h>
+
 // Only used for debug observer
 #include <networkadapter_observer.h>
 #include <networkutils_packet.h>
@@ -8,15 +10,22 @@
 
 #include <iostream>
 #include <stdexcept>
+#include <string>
+#include <cstdint>
 
 namespace
 {
+
+const std::string STACK_IP_ADDRESS("192.168.42.2");
+const uint8_t STACK_HARDWARE_ADDRESS[6] = {
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x02
+};
 
 class DebugObserver : public networkadapter::Observer
 {
 public:
     DebugObserver() {}
-    void receive(networkadapter::Adapter* network, std::shared_ptr<const networkutils::Packet> packet)
+    void receive(networkadapter::Adapter* network, std::shared_ptr<networkutils::Packet> packet)
     {
         if (!packet)
         {
@@ -41,8 +50,11 @@ int main(int argc, char* argv[])
                   << "HW address = " << networkutils::ByteOutputter(net.hardwareAddress(), 6) << "\n";
 
         // Attach receivers
-        DebugObserver debugger;
-        net.attach(&debugger);
+        //DebugObserver debugger;
+        //net.attach(&debugger);
+
+        // Attach stack
+        networkstack::Stack stack(&net, STACK_IP_ADDRESS, STACK_HARDWARE_ADDRESS);
 
         while (true);
     }

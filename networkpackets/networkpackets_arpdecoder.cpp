@@ -3,9 +3,22 @@
 #include <arpa/inet.h>
 
 #include <stdexcept>
+#include <cstring>
 
 namespace networkpackets
 {
+
+namespace
+{
+
+uint16_t extractUint16(uint8_t* base, uint16_t offset)
+{
+    uint16_t value = 0;
+    memcpy(&value, base + offset, sizeof(value));
+    return value;
+}
+
+}
 
 ArpDecoder::ArpDecoder(const std::shared_ptr<networkutils::Packet> packet)
     : mPacket(packet)
@@ -15,11 +28,11 @@ ArpDecoder::ArpDecoder(const std::shared_ptr<networkutils::Packet> packet)
         throw std::runtime_error("ARP decoder passed NULL packet");
     }
 
-    mHardwareType = ntohs(*(mPacket->data()));
-    mProtocolType = ntohs(*(mPacket->data() + 2));
+    mHardwareType = ntohs(extractUint16(mPacket->data(), 0));
+    mProtocolType = ntohs(extractUint16(mPacket->data(), 2));
     mHardwareSize = *(mPacket->data() + 4);
     mProtocolSize = *(mPacket->data() + 5);
-    mOpCode = ntohs(*(mPacket->data() + 6));
+    mOpCode = ntohs(extractUint16(mPacket->data(), 6));
 }
 
 uint16_t ArpDecoder::hardwareType() const

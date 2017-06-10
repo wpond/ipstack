@@ -6,6 +6,8 @@
 #include <string>
 #include <cstdint>
 
+#include "networkstack_arptable.h"
+
 namespace networkstack
 {
 
@@ -25,6 +27,11 @@ private:
     networkadapter::Adapter* mAdapter;
     const std::string mIpAddress;
     const uint8_t* mHardwareAddress;
+    ArpTable mArpTable;
+
+    void processArp(
+        networkadapter::Adapter* adapter,
+        std::shared_ptr<networkutils::Packet> packet);
 };
 
 }

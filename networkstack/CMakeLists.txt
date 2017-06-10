@@ -10,4 +10,5 @@ include_directories("../networkpackets")
 
 add_library(
     networkstack
-    networkstack_stack.cpp)
+    networkstack_stack.cpp
+    networkstack_arptable.cpp)

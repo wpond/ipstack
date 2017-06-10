@@ -4,6 +4,8 @@
 
 #include <networkstack_stack.h>
 
+#include <networkpackets_ethernet.h>
+
 #include "tests_testadapter.h"
 
 class Stack : public ::testing::Test
@@ -37,7 +39,38 @@ protected:
     networkstack::Stack* mStack;
 };
 
-TEST_F(Stack, ARPPacket)
+TEST_F(Stack, NoOp)
 {
-    
+    ASSERT_EQ(false, static_cast<bool>(mAdapter->testSent()));
+}
+
+TEST_F(Stack, WrongDestinationMac)
+{
+    std::shared_ptr<networkutils::Packet> emptyPayload(new networkutils::Packet(0, 0));
+
+    networkpackets::Ethernet ethernet =
+        networkpackets::Ethernet::fromPayload(emptyPayload);
+
+    {
+        const uint8_t address[6] = {
+            0, 0, 0, 0, 0, 3
+        };
+        ethernet.setDestinationMac(address);
+    }
+
+    {
+        const uint8_t address[6] = {
+            0, 0, 0, 0, 0, 1
+        };
+        ethernet.setSourceMac(address);
+    }
+
+    {
+        const uint16_t etherType = 0;
+        ethernet.setUint16("EtherType", etherType);
+    }
+
+    mAdapter->testReceive(ethernet.getPacket());
+
+    ASSERT_EQ(false, static_cast<bool>(mAdapter->testSent()));
 }

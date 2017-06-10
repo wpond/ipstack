@@ -42,10 +42,7 @@ TEST(GenericInterface, unsignedByte)
     TestDecoder decoder;
     decoder.setUint8("unsignedByte", 0xF2);
 
-    uint8_t value = 0;
-    decoder.getUint8("unsignedByte", &value);
-
-    ASSERT_EQ(0xF2, value);
+    ASSERT_EQ(0xF2, decoder.getUint8("unsignedByte"));
     ASSERT_EQ(0xF2, decoder.getPacket()->data()[0]);
 }
 
@@ -54,10 +51,7 @@ TEST(GenericInterface, signedByte)
     TestDecoder decoder;
     decoder.setInt8("signedByte", 0xF2);
 
-    int8_t value = 0;
-    decoder.getInt8("signedByte", &value);
-
-    ASSERT_EQ((int8_t)0xF2, value);
+    ASSERT_EQ((int8_t)0xF2, decoder.getInt8("signedByte"));
     ASSERT_EQ(0xF2, decoder.getPacket()->data()[1]);
 }
 
@@ -66,10 +60,7 @@ TEST(GenericInterface, unsignedShort)
     TestDecoder decoder;
     decoder.setUint16("unsignedShort", 0xF234);
 
-    uint16_t value = 0;
-    decoder.getUint16("unsignedShort", &value);
-
-    ASSERT_EQ(0xF234, value);
+    ASSERT_EQ(0xF234, decoder.getUint16("unsignedShort"));
     ASSERT_EQ(0xF2, decoder.getPacket()->data()[2]);
     ASSERT_EQ(0x34, decoder.getPacket()->data()[3]);
 }
@@ -79,10 +70,7 @@ TEST(GenericInterface, signedShort)
     TestDecoder decoder;
     decoder.setInt16("signedShort", 0xF234);
 
-    int16_t value = 0;
-    decoder.getInt16("signedShort", &value);
-
-    ASSERT_EQ((int16_t)0xF234, value);
+    ASSERT_EQ((int16_t)0xF234, decoder.getInt16("signedShort"));
     ASSERT_EQ(0xF2, decoder.getPacket()->data()[4]);
     ASSERT_EQ(0x34, decoder.getPacket()->data()[5]);
 }
@@ -92,10 +80,7 @@ TEST(GenericInterface, unsignedInt)
     TestDecoder decoder;
     decoder.setUint32("unsignedInt", 0xF2345678);
 
-    uint32_t value = 0;
-    decoder.getUint32("unsignedInt", &value);
-
-    ASSERT_EQ(0xF2345678, value);
+    ASSERT_EQ(0xF2345678, decoder.getUint32("unsignedInt"));
     ASSERT_EQ(0xF2, decoder.getPacket()->data()[6]);
     ASSERT_EQ(0x34, decoder.getPacket()->data()[7]);
     ASSERT_EQ(0x56, decoder.getPacket()->data()[8]);
@@ -107,10 +92,7 @@ TEST(GenericInterface, signedInt)
     TestDecoder decoder;
     decoder.setInt32("signedInt", 0xF2345678);
 
-    int32_t value = 0;
-    decoder.getInt32("signedInt", &value);
-
-    ASSERT_EQ((int32_t)0xF2345678, value);
+    ASSERT_EQ((int32_t)0xF2345678, decoder.getInt32("signedInt"));
     ASSERT_EQ(0xF2, decoder.getPacket()->data()[10]);
     ASSERT_EQ(0x34, decoder.getPacket()->data()[11]);
     ASSERT_EQ(0x56, decoder.getPacket()->data()[12]);
