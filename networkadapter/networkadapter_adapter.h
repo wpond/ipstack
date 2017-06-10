@@ -2,6 +2,7 @@
 #define NETWORKADAPTER_ADAPTER
 
 #include <networkutils_packet.h>
+#include <networkutils_macaddress.h>
 
 #include <cstdint>
 
@@ -17,7 +18,7 @@ public:
     virtual ~Adapter() {};
 
     virtual const std::string& interface() const = 0;
-    virtual const uint8_t* hardwareAddress() const = 0;
+    virtual const networkutils::MacAddress& hardwareAddress() const = 0;
 
     virtual void attach(Observer* observer) = 0;
     virtual void detatch(Observer* observer) = 0;

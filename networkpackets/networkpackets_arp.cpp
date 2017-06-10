@@ -61,26 +61,8 @@ Arp::Arp(std::shared_ptr<networkutils::Packet> packet)
     addField("OpCode", GenericInterface::UINT16, OPCODE_OFFSET);
     addField("SourceIP", GenericInterface::UINT32, SOURCE_IP_OFFSET);
     addField("DestinationIP", GenericInterface::UINT32, DESTINATION_IP_OFFSET);
-}
-
-void Arp::setSourceMac(const uint8_t* address)
-{
-    memcpy(data() + SOURCE_MAC_OFFSET, address, SOURCE_MAC_SIZE);
-}
-
-void Arp::setDestinationMac(const uint8_t* address)
-{
-    memcpy(data() + DESTINATION_MAC_OFFSET, address, DESTINATION_MAC_SIZE);
-}
-
-const uint8_t* Arp::sourceMac() const
-{
-    return data() + SOURCE_MAC_OFFSET;
-}
-
-const uint8_t* Arp::destinationMac() const
-{
-    return data() + DESTINATION_MAC_OFFSET;
+    addField("SourceMac", GenericInterface::MACADDRESS, SOURCE_MAC_OFFSET);
+    addField("DestinationMac", GenericInterface::MACADDRESS, DESTINATION_MAC_OFFSET);
 }
 
 }

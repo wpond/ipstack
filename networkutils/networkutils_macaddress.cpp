@@ -62,4 +62,9 @@ bool MacAddress::operator==(const MacAddress& rhs) const
     return memcmp(mAddress, rhs.mAddress, sizeof(mAddress)) == 0;
 }
 
+bool MacAddress::operator!=(const MacAddress& rhs) const
+{
+    return !(*this == rhs);
+}
+
 }

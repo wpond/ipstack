@@ -2,6 +2,8 @@
 
 #include <cstdint>
 
+#include <networkutils_macaddress.h>
+
 #include <networkstack_stack.h>
 
 #include <networkpackets_ethernet.h>
@@ -31,11 +33,11 @@ public:
     }
 protected:
     const char mAdapterIp[13] = "192.168.0.1";
-    const uint8_t mAdapterAddress[6] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x01 };
+    const networkutils::MacAddress mAdapterAddress = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x01 };
     tests::TestAdapter* mAdapter;
 
     const char mStackIp[13] = "192.168.0.2";
-    const uint8_t mStackAddress[6] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x02 };
+    const networkutils::MacAddress mStackAddress = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x02 };
     networkstack::Stack* mStack;
 };
 
@@ -51,19 +53,8 @@ TEST_F(Stack, WrongDestinationMac)
     networkpackets::Ethernet ethernet =
         networkpackets::Ethernet::fromPayload(emptyPayload);
 
-    {
-        const uint8_t address[6] = {
-            0, 0, 0, 0, 0, 3
-        };
-        ethernet.setDestinationMac(address);
-    }
-
-    {
-        const uint8_t address[6] = {
-            0, 0, 0, 0, 0, 1
-        };
-        ethernet.setSourceMac(address);
-    }
+    ethernet.setMacAddress("DestinationMac", { 0, 0, 0, 0, 0, 3 });
+    ethernet.setMacAddress("SourceMac", { 0, 0, 0, 0, 0, 1 });
 
     {
         const uint16_t etherType = 0;

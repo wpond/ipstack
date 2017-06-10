@@ -123,7 +123,7 @@ KernelAdapter::KernelAdapter()
                 << "errno = " << strerror(errno);
             throw std::runtime_error(oss.str());
         }
-        memcpy(mHardwareAddress, ifr.ifr_hwaddr.sa_data, sizeof(mHardwareAddress));
+        memcpy(mHardwareAddress.value(), ifr.ifr_hwaddr.sa_data, sizeof(mHardwareAddress));
     }
 
     rc = ioctl(mSocket, SIOCGIFFLAGS, &ifr);
@@ -175,7 +175,7 @@ const std::string& KernelAdapter::interface() const
     return mInterface;
 }
 
-const uint8_t* KernelAdapter::hardwareAddress() const
+const networkutils::MacAddress& KernelAdapter::hardwareAddress() const
 {
     return mHardwareAddress;
 }

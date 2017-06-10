@@ -16,11 +16,6 @@ public:
     static Ethernet fromPayload(std::shared_ptr<networkutils::Packet> payload);
     static Ethernet fromFullPacket(std::shared_ptr<networkutils::Packet> packet);
 
-    void setSourceMac(const uint8_t* address);
-    void setDestinationMac(const uint8_t* address);
-    const uint8_t* sourceMac() const;
-    const uint8_t* destinationMac() const;
-
 private:
     Ethernet(std::shared_ptr<networkutils::Packet> packet);
 

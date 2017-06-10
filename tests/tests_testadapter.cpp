@@ -3,7 +3,7 @@
 namespace tests
 {
 
-TestAdapter::TestAdapter(const std::string& interface, const uint8_t* hardwareAddress)
+TestAdapter::TestAdapter(const std::string& interface, const networkutils::MacAddress& hardwareAddress)
     : mInterface(interface), mHardwareAddress(hardwareAddress)
 {
 
@@ -19,7 +19,7 @@ const std::string& TestAdapter::interface() const
     return mInterface;
 }
 
-const uint8_t* TestAdapter::hardwareAddress() const
+const networkutils::MacAddress& TestAdapter::hardwareAddress() const
 {
     return mHardwareAddress;
 }

@@ -12,6 +12,7 @@
 #include <cstdint>
 
 #include <networkutils_packet.h>
+#include <networkutils_macaddress.h>
 
 #include "networkadapter_adapter.h"
 #include "networkadapter_reader.h"
@@ -28,7 +29,7 @@ public:
     virtual ~KernelAdapter();
 
     virtual const std::string& interface() const;
-    virtual const uint8_t* hardwareAddress() const;
+    virtual const networkutils::MacAddress& hardwareAddress() const;
 
     virtual void attach(Observer* observer);
     virtual void detatch(Observer* observer);
@@ -40,7 +41,7 @@ private:
     KernelAdapter(const KernelAdapter& that);
 
     std::string mInterface;
-    uint8_t mHardwareAddress[6];
+    networkutils::MacAddress mHardwareAddress;
     int32_t mFd;
     int32_t mSocket;
 

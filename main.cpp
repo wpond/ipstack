@@ -2,6 +2,7 @@
 #include <networkadapter_kerneladapter.h>
 
 #include <networkstack_stack.h>
+#include <networkutils_macaddress.h>
 
 // Only used for debug observer
 #include <networkadapter_observer.h>
@@ -17,7 +18,7 @@ namespace
 {
 
 const std::string STACK_IP_ADDRESS("192.168.42.2");
-const uint8_t STACK_HARDWARE_ADDRESS[6] = {
+const networkutils::MacAddress STACK_HARDWARE_ADDRESS = {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x02
 };
 
@@ -47,7 +48,7 @@ int main(int argc, char* argv[])
         // Create network adapter
         networkadapter::KernelAdapter net;
         std::cout << "Created device " << net.interface() << "\n"
-                  << "HW address = " << networkutils::ByteOutputter(net.hardwareAddress(), 6) << "\n";
+                  << "HW address = " << net.hardwareAddress() << "\n";
 
         // Attach receivers
         //DebugObserver debugger;

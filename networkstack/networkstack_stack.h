@@ -3,6 +3,8 @@
 
 #include <networkadapter_adapter.h>
 
+#include <networkutils_macaddress.h>
+
 #include <string>
 #include <cstdint>
 
@@ -17,7 +19,7 @@ public:
     Stack(
         networkadapter::Adapter* adapter,
         const std::string& ipAddress,
-        const uint8_t* hardwareAddress);
+        const networkutils::MacAddress& hardwareAddress);
     virtual ~Stack();
 
     virtual void receive(
@@ -26,7 +28,7 @@ public:
 private:
     networkadapter::Adapter* mAdapter;
     const std::string mIpAddress;
-    const uint8_t* mHardwareAddress;
+    networkutils::MacAddress mHardwareAddress;
     ArpTable mArpTable;
 
     void processArp(

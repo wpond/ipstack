@@ -10,19 +10,19 @@ namespace
 
 void testPacket(const networkpackets::Ethernet& ethernet)
 {
-    ASSERT_EQ(0, ethernet.destinationMac()[0]);
-    ASSERT_EQ(1, ethernet.destinationMac()[1]);
-    ASSERT_EQ(2, ethernet.destinationMac()[2]);
-    ASSERT_EQ(3, ethernet.destinationMac()[3]);
-    ASSERT_EQ(4, ethernet.destinationMac()[4]);
-    ASSERT_EQ(5, ethernet.destinationMac()[5]);
+    {
+        const networkutils::MacAddress macAddress = {
+            0x00, 0x01, 0x02, 0x03, 0x04, 0x05
+        };
+        ASSERT_EQ(macAddress, ethernet.getMacAddress("DestinationMac"));
+    }
 
-    ASSERT_EQ(6, ethernet.sourceMac()[0]);
-    ASSERT_EQ(7, ethernet.sourceMac()[1]);
-    ASSERT_EQ(8, ethernet.sourceMac()[2]);
-    ASSERT_EQ(9, ethernet.sourceMac()[3]);
-    ASSERT_EQ(10, ethernet.sourceMac()[4]);
-    ASSERT_EQ(11, ethernet.sourceMac()[5]);
+    {
+        const networkutils::MacAddress macAddress = {
+            0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B
+        };
+        ASSERT_EQ(macAddress, ethernet.getMacAddress("SourceMac"));
+    }
 
     ASSERT_EQ(0x0C0D, ethernet.getUint16("EtherType"));
 
@@ -68,19 +68,8 @@ TEST(Ethernet, fromPayload)
     std::shared_ptr<networkutils::Packet> payload(new networkutils::Packet(rawPayload, sizeof(rawPayload)));
     networkpackets::Ethernet ethernet = networkpackets::Ethernet::fromPayload(payload);
 
-    {
-        uint8_t destinationMac[6] = {
-            0, 1, 2, 3, 4, 5
-        };
-        ethernet.setDestinationMac(destinationMac);
-    }
-
-    {
-        uint8_t sourceMac[6] = {
-            6, 7, 8, 9, 10, 11
-        };
-        ethernet.setSourceMac(sourceMac);
-    }
+    ethernet.setMacAddress("DestinationMac", { 0, 1, 2, 3, 4, 5 });
+    ethernet.setMacAddress("SourceMac", { 6, 7, 8, 9, 10, 11 });
 
     {
         const uint16_t etherType = 0x0C0D;

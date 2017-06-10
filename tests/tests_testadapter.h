@@ -5,12 +5,12 @@
 #include <networkadapter_observer.h>
 
 #include <networkutils_packet.h>
+#include <networkutils_macaddress.h>
 
 #include <memory>
 #include <string>
 #include <set>
 #include <queue>
-#include <cstdint>
 
 namespace tests
 {
@@ -18,11 +18,11 @@ namespace tests
 class TestAdapter : public networkadapter::Adapter
 {
 public:
-    TestAdapter(const std::string& interface, const uint8_t* hardwareAddress);
+    TestAdapter(const std::string& interface, const networkutils::MacAddress& hardwareAddress);
     virtual ~TestAdapter();
 
     virtual const std::string& interface() const;
-    virtual const uint8_t* hardwareAddress() const;
+    virtual const networkutils::MacAddress& hardwareAddress() const;
 
     virtual void attach(networkadapter::Observer* observer);
     virtual void detatch(networkadapter::Observer* observer);
@@ -39,7 +39,7 @@ private:
     std::set<networkadapter::Observer*> mObservers;
     std::queue<std::shared_ptr<networkutils::Packet> > mSentQueue;
     std::string mInterface;
-    const uint8_t* mHardwareAddress;
+    networkutils::MacAddress mHardwareAddress;
 };
 
 }

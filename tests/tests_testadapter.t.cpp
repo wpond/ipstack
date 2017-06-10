@@ -6,32 +6,27 @@
 #include <tests_testadapter.h>
 
 #include <networkadapter_adapter.h>
+
+#include <networkutils_macaddress.h>
 #include <networkutils_packet.h>
 
 TEST(TestAdapter, Create)
 {
-    const uint8_t hardwareAddress[6] = { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06 };
+    networkutils::MacAddress hardwareAddress = { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06 };
     tests::TestAdapter adapter("interface", hardwareAddress);
     ASSERT_EQ("interface", adapter.interface());
-    ASSERT_EQ(0x01, adapter.hardwareAddress()[0]);
-    ASSERT_EQ(0x02, adapter.hardwareAddress()[1]);
-    ASSERT_EQ(0x03, adapter.hardwareAddress()[2]);
-    ASSERT_EQ(0x04, adapter.hardwareAddress()[3]);
-    ASSERT_EQ(0x05, adapter.hardwareAddress()[4]);
-    ASSERT_EQ(0x06, adapter.hardwareAddress()[5]);
+    ASSERT_EQ(hardwareAddress, adapter.hardwareAddress());
 }
 
 TEST(TestAdapter, AttachNull)
 {
-    const uint8_t hardwareAddress[6] = { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06 };
-    tests::TestAdapter adapter("interface", hardwareAddress);
+    tests::TestAdapter adapter("interface", { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06 });
     ASSERT_THROW(adapter.attach(NULL), std::runtime_error);
 }
 
 TEST(TestAdapter, DetatchNull)
 {
-    const uint8_t hardwareAddress[6] = { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06 };
-    tests::TestAdapter adapter("interface", hardwareAddress);
+    tests::TestAdapter adapter("interface", { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06 });
     ASSERT_THROW(adapter.attach(NULL), std::runtime_error);
 }
 
@@ -65,8 +60,7 @@ private:
 
 TEST(TestAdapter, AttachDetatch)
 {
-    const uint8_t hardwareAddress[6] = { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06 };
-    tests::TestAdapter adapter("interface", hardwareAddress);
+    tests::TestAdapter adapter("interface", { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06 });
     Observer observer;
 
     ASSERT_EQ(0, adapter.testObservers().size());
@@ -81,15 +75,13 @@ TEST(TestAdapter, AttachDetatch)
 
 TEST(TestAdapter, emptySentQueue)
 {
-    const uint8_t hardwareAddress[6] = { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06 };
-    tests::TestAdapter adapter("interface", hardwareAddress);
+    tests::TestAdapter adapter("interface", { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06 });
     ASSERT_FALSE(adapter.testSent());
 }
 
 TEST(TestAdapter, SendToSent)
 {
-    const uint8_t hardwareAddress[6] = { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06 };
-    tests::TestAdapter adapter("interface", hardwareAddress);
+    tests::TestAdapter adapter("interface", { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06 });
 
     const uint8_t data[2] = { 0x01, 0x02 };
     std::shared_ptr<networkutils::Packet> packet(new networkutils::Packet(data, 2));
@@ -105,8 +97,7 @@ TEST(TestAdapter, SendToSent)
 
 TEST(TestAdapter, ReceiveOne)
 {
-    const uint8_t hardwareAddress[6] = { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06 };
-    tests::TestAdapter adapter("interface", hardwareAddress);
+    tests::TestAdapter adapter("interface", { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06 });
 
     Observer observer;
     adapter.attach(&observer);

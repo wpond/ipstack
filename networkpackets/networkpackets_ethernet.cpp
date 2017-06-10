@@ -13,9 +13,6 @@ const int SMAC_OFFSET = 6;
 const int ETHERTYPE_OFFSET = 12;
 const int PAYLOAD_OFFSET = 14;
 
-const int DMAC_SIZE = 6;
-const int SMAC_SIZE = 6;
-
 const int HEADER_SIZE = 14;
 
 }
@@ -50,28 +47,10 @@ Ethernet Ethernet::fromFullPacket(std::shared_ptr<networkutils::Packet> packet)
 Ethernet::Ethernet(std::shared_ptr<networkutils::Packet> packet)
     : GenericInterface(packet)
 {
+    addField("DestinationMac", GenericInterface::MACADDRESS, DMAC_OFFSET);
+    addField("SourceMac", GenericInterface::MACADDRESS, SMAC_OFFSET);
     addField("EtherType", GenericInterface::UINT16, ETHERTYPE_OFFSET);
     addField("Payload", GenericInterface::PAYLOAD, PAYLOAD_OFFSET);
-}
-
-void Ethernet::setSourceMac(const uint8_t* address)
-{
-    memcpy(data() + SMAC_OFFSET, address, SMAC_SIZE);
-}
-
-void Ethernet::setDestinationMac(const uint8_t* address)
-{
-    memcpy(data() + DMAC_OFFSET, address, DMAC_SIZE);
-}
-
-const uint8_t* Ethernet::sourceMac() const
-{
-    return data() + SMAC_OFFSET;
-}
-
-const uint8_t* Ethernet::destinationMac() const
-{
-    return data() + DMAC_OFFSET;
 }
 
 }

@@ -18,7 +18,7 @@ namespace
 
 const uint8_t ARP_TABLE_SIZE = 255;
 
-const uint8_t ADDRESS_ALL[6] = {
+const networkutils::MacAddress ADDRESS_ALL = {
     0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF
 };
 
@@ -34,7 +34,7 @@ const uint16_t IPV4_PROTOCOL = 0x0800;
 Stack::Stack(
     networkadapter::Adapter* adapter,
     const std::string& ipAddress,
-    const uint8_t* hardwareAddress)
+    const networkutils::MacAddress& hardwareAddress)
     : mAdapter(adapter),
       mIpAddress(ipAddress),
       mHardwareAddress(hardwareAddress),
@@ -70,8 +70,8 @@ void Stack::receive(
     networkpackets::Ethernet ethernet =
         networkpackets::Ethernet::fromFullPacket(packet);
 
-    if (memcmp(mHardwareAddress, ethernet.destinationMac(), HARDWARE_ADDRESS_SIZE) &&
-        memcmp(ADDRESS_ALL, ethernet.destinationMac(), HARDWARE_ADDRESS_SIZE))
+    if (mHardwareAddress != ethernet.getMacAddress("DestinationMac") &&
+        ADDRESS_ALL != ethernet.getMacAddress("DestinationMac"))
     {
         return;
     }
