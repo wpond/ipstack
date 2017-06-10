@@ -23,7 +23,8 @@ add_executable(Tests
     ${PROJECT_SOURCE_DIR}/networkpackets_arpdecoder.t.cpp
     ${PROJECT_SOURCE_DIR}/networkpackets_genericinterface.t.cpp
     ${PROJECT_SOURCE_DIR}/networkpackets_ethernet.t.cpp
-    ${PROJECT_SOURCE_DIR}/networkstack_arptable.t.cpp)
+    ${PROJECT_SOURCE_DIR}/networkstack_arptable.t.cpp
+    ${PROJECT_SOURCE_DIR}/networkutils_macaddress.t.cpp)
 target_link_libraries(
     Tests
     gtest_main

@@ -1,7 +1,10 @@
 #ifndef NETWORKUTILS_MACADDRESS_H
 #define NETWORKUTILS_MACADDRESS_H
 
+#include <ostream>
 #include <cstdint>
+
+#include "networkutils_byteoutputter.h"
 
 namespace networkutils
 {
@@ -29,6 +32,11 @@ public:
 private:
     uint8_t mAddress[6];
 };
+
+inline std::ostream& operator<<(std::ostream& stream, const MacAddress& mac)
+{
+    return stream << ByteOutputter(mac.value(), 6);
+}
 
 }
 
