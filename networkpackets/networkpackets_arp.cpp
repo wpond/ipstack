@@ -24,20 +24,10 @@ const int PACKET_SIZE = 28;
 
 }
 
-Arp Arp::fromPayload(std::shared_ptr<networkutils::Packet> payload)
+Arp Arp::emptyPacket()
 {
-    if (!payload)
-    {
-        throw std::runtime_error("Passed NULL payload to fromPayload");
-    }
-
-    const uint32_t size = PACKET_SIZE + payload->size();
-    uint8_t rawPacket[size];
-
-    memset(rawPacket, 0, size);
-    memcpy(rawPacket + PACKET_SIZE, payload->data(), payload->size());
-
-    std::shared_ptr<networkutils::Packet> packet(new networkutils::Packet(rawPacket, size));
+    const uint8_t buffer[PACKET_SIZE] = {0};
+    std::shared_ptr<networkutils::Packet> packet(new networkutils::Packet(buffer, sizeof(buffer)));
     return Arp(packet);
 }
 

@@ -51,9 +51,9 @@ bool ArpTable::update(const uint8_t* hardwareAddress, const uint8_t* ipAddress)
     // Iterate through the table, looking for hardware address
     for (uint8_t i = 0; i < mUsedCount; ++i)
     {
-        if (hardwareAddressesEqual(hardwareAddress, getHardwareAddress(i)))
+        if (ipAddressesEqual(ipAddress, getIpAddress(i)))
         {
-            memcpy(getIpAddress(i), ipAddress, IP_ADDRESS_SIZE);
+            memcpy(getHardwareAddress(i), hardwareAddress, HARDWARE_ADDRESS_SIZE);
             return false;
         }
     }

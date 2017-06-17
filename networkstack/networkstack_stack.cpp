@@ -4,7 +4,6 @@
 #include <cstring>
 #include <iostream> // TODO: remove
 
-#include <networkpackets_ethernet.h>
 #include <networkpackets_arp.h>
 #include <networkpackets_arpdecoder.h>
 
@@ -28,6 +27,8 @@ const uint8_t IP_ADDRESS_SIZE = 4;
 const uint16_t ETH_P_ARP = 0x0806;
 const uint16_t ETHERNET_HARDWARE_TYPE = 0x0001;
 const uint16_t IPV4_PROTOCOL = 0x0800;
+const uint16_t ARP_REQUEST = 0x0001;
+const uint16_t ARP_RESPONSE = 0x0002;
 
 }
 
@@ -79,7 +80,7 @@ void Stack::receive(
     switch(ethernet.getUint16("EtherType"))
     {
     case ETH_P_ARP:
-        processArp(adapter, ethernet.getPayload("Payload"));
+        processArp(adapter, ethernet);
         break;
     default:
         // Log ?
@@ -89,11 +90,11 @@ void Stack::receive(
 
 void Stack::processArp(
     networkadapter::Adapter* adapter,
-    std::shared_ptr<networkutils::Packet> packet)
+    const networkpackets::Ethernet& packet)
 {
-    networkpackets::ArpDecoder decoder(packet);
+    networkpackets::ArpDecoder decoder(packet.getPayload("Payload"));
 
-    std::cout << "ARP Packet = " << networkutils::ByteOutputter(packet->data(), packet->size(), 8) << "\n";
+    std::cout << "ARP Packet = " << networkutils::ByteOutputter(packet.getPacket()->data(), packet.getPacket()->size(), 8) << "\n";
 
     if (decoder.hardwareType() != ETHERNET_HARDWARE_TYPE)
     {
@@ -131,9 +132,37 @@ void Stack::processArp(
         return;
     }
 
-    networkpackets::Arp arp = networkpackets::Arp::fromFullPacket(packet);
+    networkpackets::Arp arp = networkpackets::Arp::fromFullPacket(packet.getPayload("Payload"));
 
     std::cout << "Received ARP packet = " << arp << "\n";
+
+    const networkutils::MacAddress macAddress = arp.getMacAddress("SourceMac");
+    const uint32_t ipAddress = arp.getUint32("SourceIP");
+
+    mArpTable.update(macAddress.value(), (const uint8_t*)&ipAddress);
+
+    std::cout << "Destination IP = " << networkutils::IpAddress(arp.getUint32("DestinationIP")) << ", "
+              << "this IP = " << mIpAddress
+              << "\n";
+
+    if (networkutils::IpAddress(arp.getUint32("DestinationIP")) == mIpAddress &&
+        arp.getUint16("OpCode") == ARP_REQUEST)
+    {
+        arp.setUint16("OpCode", ARP_RESPONSE);
+        arp.setUint32("DestinationIP", arp.getUint32("SourceIP"));
+        arp.setMacAddress("DestinationMac", arp.getMacAddress("SourceMac"));
+        arp.setUint32("SourceIP", mIpAddress.asInt());
+        arp.setMacAddress("SourceMac", mHardwareAddress);
+
+        networkpackets::Ethernet response = networkpackets::Ethernet::fromPayload(arp.getPacket());
+        response.setMacAddress("SourceMac", mHardwareAddress);
+        response.setMacAddress("DestinationMac", packet.getMacAddress("SourceMac"));
+        response.setUint16("EtherType", ETH_P_ARP);
+
+        std::cout << "Sending reply = " << arp << "\n";
+
+        adapter->send(response.getPacket());
+    }
 }
 
 }

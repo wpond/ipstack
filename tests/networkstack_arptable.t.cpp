@@ -104,27 +104,29 @@ TEST(ArpTable, update)
 
     {
         const uint8_t hwAddress[6] = {
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x01
+            0x00, 0x00, 0x00, 0x00, 0x00, 0x03
         };
         const uint8_t ipAddress[4] = {
-            0x00, 0x00, 0x00, 0x03
+            0x00, 0x00, 0x00, 0x01
         };
 
         ASSERT_FALSE(table.update(hwAddress, ipAddress));
     }
 
     {
-        const uint8_t hwAddress[6] = {
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x01
+        const uint8_t ipAddress[4] = {
+            0x00, 0x00, 0x00, 0x01
         };
-        uint8_t ipAddress[4] = { 0 };
+        uint8_t hwAddress[6] = { 0 };
 
-        ASSERT_TRUE(table.lookupIpAddress(hwAddress, ipAddress));
+        ASSERT_TRUE(table.lookupHardwareAddress(ipAddress, hwAddress));
 
-        ASSERT_EQ(0x00, ipAddress[0]);
-        ASSERT_EQ(0x00, ipAddress[1]);
-        ASSERT_EQ(0x00, ipAddress[2]);
-        ASSERT_EQ(0x03, ipAddress[3]);
+        ASSERT_EQ(0x00, hwAddress[0]);
+        ASSERT_EQ(0x00, hwAddress[1]);
+        ASSERT_EQ(0x00, hwAddress[2]);
+        ASSERT_EQ(0x00, hwAddress[3]);
+        ASSERT_EQ(0x00, hwAddress[4]);
+        ASSERT_EQ(0x03, hwAddress[5]);
     }
 }
 

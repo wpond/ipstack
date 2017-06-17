@@ -17,7 +17,7 @@
 namespace
 {
 
-const std::string STACK_IP_ADDRESS("192.168.42.2");
+const std::string STACK_IP_ADDRESS("192.168.43.2");
 const networkutils::MacAddress STACK_HARDWARE_ADDRESS = {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x02
 };

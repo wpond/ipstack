@@ -4,6 +4,9 @@
 #include <networkadapter_adapter.h>
 
 #include <networkutils_macaddress.h>
+#include <networkutils_ipaddress.h>
+
+#include <networkpackets_ethernet.h>
 
 #include <string>
 #include <cstdint>
@@ -27,13 +30,13 @@ public:
         std::shared_ptr<networkutils::Packet> packet);
 private:
     networkadapter::Adapter* mAdapter;
-    const std::string mIpAddress;
+    const networkutils::IpAddress mIpAddress;
     networkutils::MacAddress mHardwareAddress;
     ArpTable mArpTable;
 
     void processArp(
         networkadapter::Adapter* adapter,
-        std::shared_ptr<networkutils::Packet> packet);
+        const networkpackets::Ethernet& packet);
 };
 
 }
